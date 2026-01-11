@@ -1,0 +1,118 @@
+﻿@model WebThiTracNghiemOnline.Models.AccountUser
+
+@{
+    ViewBag.Title = "DetailsTeacher";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    @*<div class="page-header">
+        <ul class="breadcrumbs mb-3">
+            <li class="nav-home">
+                <a href="#">
+                    <i class="icon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">Tài khoản</a>
+            </li>
+            <li class="separator">
+                <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">List giáo viên</a>
+            </li>
+            <li class="separator">
+                <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+                <a href="#">Tạo mới</a>
+            </li>
+        </ul>
+    </div>*@
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Thông tin chi tiết giáo viên</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NAMEUSER)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.NAMEUSER)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ACCOUNT)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ACCOUNT)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.IMG)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.IMG)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SEX)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.SEX)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.EMAIL)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.EMAIL)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ROLE)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ROLE)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CREATEAT)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CREATEAT)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.STT)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.STT)
+                        </dd>
+
+                    </dl>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a class="btn btn-warning btn-round ms-auto" href="@Url.Action("ListAccoutAdmin","AccountUser")">Trở về</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

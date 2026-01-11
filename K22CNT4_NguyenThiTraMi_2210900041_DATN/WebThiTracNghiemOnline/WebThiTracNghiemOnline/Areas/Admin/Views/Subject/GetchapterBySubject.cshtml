@@ -1,0 +1,79 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.Chapter>
+
+@{
+    ViewBag.Title = "GetchapterBySubject";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Danh sách Chương của môn:  @ViewBag.namesub</h4>
+                        <button class="btn btn-primary btn-round ms-auto" onclick="location.href='@Url.Action("CreateChapterBySubject","Subject", new { idSubject = ViewBag.idsub})'">
+                            <i class="fa fa-plus"></i>
+                            Thêm mới
+                        </button>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="multi-filter-select_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                Tên chương
+                                            </th>
+                                            <th>
+                                                Ngày tạo
+                                            </th>
+                                            <th>
+                                                Trạng thái
+                                            </th>
+                                            <th>
+                                                Hành động
+                                            </th>
+                                        </tr>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NAMECHAPTER)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.CREATEAT)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.STT)
+                                                </td>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <a class="btn btn-warning btn-round ms-auto" href="@Url.Action("ListSubjectByIdTeacher", "Subject", new { idSubject = ViewBag.idsub })">Trở về</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+   

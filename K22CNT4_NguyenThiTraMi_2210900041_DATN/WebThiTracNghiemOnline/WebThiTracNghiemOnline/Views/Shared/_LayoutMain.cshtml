@@ -1,0 +1,327 @@
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Courses | Education</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    <link href="~/Theme/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Theme/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Theme/css/slicknav.css" rel="stylesheet" />
+    <link href="~/Theme/css/flaticon.css" rel="stylesheet" />
+    <link href="~/Theme/css/progressbar_barfiller.css" rel="stylesheet" />
+    <link href="~/Theme/css/gijgo.css" rel="stylesheet" />
+    <link href="~/Theme/css/animate.min.css" rel="stylesheet" />
+    <link href="~/Theme/css/animated-headline.css" rel="stylesheet" />
+    <link href="~/Theme/css/magnific-popup.css" rel="stylesheet" />
+    <link href="~/Theme/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="~/Theme/css/themify-icons.css" rel="stylesheet" />
+    <link href="~/Theme/css/slick.css" rel="stylesheet" />
+    <link href="~/Theme/css/nice-select.css" rel="stylesheet" />
+    <link href="~/Theme/css/style.css" rel="stylesheet" />
+
+
+    <script type="text/javascript">
+        function KeepSessionAlive() {
+            $.ajax({
+                url: '@Url.Action("KeepSessionAliveUser", "Login")',
+                method: 'GET',
+                success: function (result) {
+                    console.log("Session refreshed");
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 404) {
+                        console.log("Resource not found: " + xhr.responseText);
+                    } else if (xhr.status === 401) {
+                        alert("Session has expired. Please log in again.");
+                        window.location.href = '/Login/LoginUser';
+                    } else {
+                        console.log("Error refreshing session: " + error);
+                    }
+                }
+            });
+        }
+        setInterval(KeepSessionAlive, 60000); // 60000ms = 1 phút
+    </script>
+</head>
+
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="~/Theme/img/logo/logoschool.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area header-transparent">
+            <div class="main-header ">
+                <div class="header-bottom  header-sticky">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-2 col-lg-2">
+                                <div class="logo">
+                                    <a href="@Url.Action("ViewIndex","Home")"><img src="~/Theme/img/logo/logomain.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-10 col-lg-10">
+                                <div class="menu-wrapper d-flex align-items-center justify-content-end">
+                                    <!-- Main-menu -->
+                                    <div class="main-menu d-none d-lg-block">
+                                        <nav>
+                                            <ul id="navigation">
+                                                <li class="active"><a href="@Url.Action("ViewIndex","Home")">Trang Chủ</a></li>
+                                                <li><a href="@Url.Action("ViewListExam","ViewExam")">Bài thi</a></li>
+                                                <li><a href="#">Tin tức</a></li>
+                                                <li><a href="@Url.Action("Contact","Information")">Liên hệ</a></li>
+                                                <li>
+                                                    <a href="#">
+                                                        @if (Session["User"] != null)
+                                                        {
+                                                            var user = (WebThiTracNghiemOnline.Models.AccountStudents)Session["User"];
+                                                            @:Xin chào! @user.NAMESTUDENT
+                                                        }
+                                                        else
+                                                        {
+                                                            @:User
+                                                        }
+                                                    </a>
+                                                    <ul class="submenu" style="padding:0">
+                                                        <li><a href="@Url.Action("PesionalInfo","Information")">Thông tin cá nhân</a></li>
+                                                        <li><a href="@Url.Action("ExamComplete","Information")">Xem lại bài thi</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="button-header"><a href="@Url.Action("Logout_AccountUser","Login")" class="btn btn3">Log out</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+    <main>
+        <!--? slider Area Start-->
+        <section class="slider-area ">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height d-flex align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-7 col-md-12">
+                                <div class="hero__caption">
+                                    <h1 data-animation="fadeInLeft" data-delay="0.2s">Website<br> Thi trắc nghiệm trưc tuyến</h1>
+                                    <p data-animation="fadeInLeft" data-delay="0.4s">
+                                        "Học hỏi không bao giờ kết thúc, hãy thách thức mình mỗi ngày cùng với chúng tôi, nơi mà kiến thức trở thành trải nghiệm thú vị và hữu ích nhất."
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ? services-area -->
+        <div class="services-area">
+            <div class="container">
+                <div class="row justify-content-sm-center">
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="~/Theme/img/icon/icon1.svg" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Ngân hàng đề thi đa dạng</h3>
+                                <p>Cung cấp nhiều bài thi trắc nghiệm theo từng môn học và cấp độ khác nhau.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="~/Theme/img/icon/icon2.svg" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Đội ngũ giáo viên chuyên môn</h3>
+                                <p>Các bài thi được biên soạn bởi những giáo viên và chuyên gia giàu kinh nghiệm.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="~/Theme/img/icon/icon3.svg" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Truy cập mọi lúc - mọi nơi</h3>
+                                <p>Tham gia thi trực tuyến bất kỳ lúc nào với tài khoản cá nhân.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        @RenderBody()
+
+    </main>
+    <footer>
+        <div class="footer-wrappper footer-bg">
+            <!-- Footer Start-->
+            <div class="footer-area footer-padding">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="single-footer-caption mb-30">
+                                    <!-- logo -->
+                                    <div class="footer-logo mb-25">
+                                        <a href="index.html"><img src="~/Theme/img/logo/logomain.png" alt=""></a>
+                                    </div>
+                                    <div class="footer-tittle">
+                                        <div class="footer-pera">
+                                            <p>Khám phá những bài thi trắc nghiệm chất lượng giúp bạn nâng cao kiến thức và chuẩn bị cho tương lai.</p>
+                                        </div>
+                                    </div>
+                                    <!-- social -->
+                                    <div class="footer-social">
+                                        <a href="https://www.facebook.com/people/Tr%C6%B0%E1%BB%9Dng-Trung-C%E1%BA%A5p-Ngh%E1%BB%81-C%E1%BB%A7-Chi-Gi%E1%BB%9Bi-thi%E1%BB%87u-vi%E1%BB%87c-l%C3%A0m/100067181359389/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="https://www.youtube.com/channel/UCRtNaBa7bOEas8oLb1jpL_w" target="_blank"><i class="fab fa-youtube"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Giải pháp của chúng tôi</h4>
+                                    <ul>
+                                        <li><a href="#">Khóa thi trắc nghiệm</a></li>
+                                        <li><a href="#">Đánh giá kiến thức</a></li>
+                                        <li><a href="#">Hỗ trợ học tập</a></li>
+                                        <li><a href="#">Tài liệu học tập</a></li>
+                                        <li><a href="#">Chương trình ôn tập</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Hỗ trợ</h4>
+                                    <ul>
+                                        <li><a href="#">Hướng dẫn sử dụng</a></li>
+                                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                                        <li><a href="#">Liên hệ hỗ trợ</a></li>
+                                        <li><a href="#">Phản hồi và góp ý</a></li>
+                                        <li><a href="#">Thông tin về chúng tôi</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Công ty</h4>
+                                    <ul>
+                                        <li><a href="#">Giới thiệu công ty</a></li>
+                                        <li><a href="#">Tầm nhìn và sứ mệnh</a></li>
+                                        <li><a href="#">Đội ngũ của chúng tôi</a></li>
+                                        <li><a href="#">Tin tức và sự kiện</a></li>
+                                        <li><a href="#">Đối tác</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer-bottom area -->
+            <div class="footer-bottom-area">
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-xl-12 ">
+                            <div class="footer-copy-right text-center">
+                                <p>
+                                    Copyright &copy;
+                                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="http://trungcapnghecuchi.edu.vn/" target="_blank" style="color:yellow">Trung Cấp Nghề Củ Chi</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End-->
+        </div>
+    </footer>
+
+    <!-- Scroll Up -->
+    <div id="back-top">
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+    <!-- JS here -->
+    <script src="~/Theme/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="~/Theme/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="~/Theme/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/Theme/js/popper.min.js"></script>
+    <script src="~/Theme/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="~/Theme/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="~/Theme/js/owl.carousel.min.js"></script>
+    <script src="~/Theme/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="~/Theme/js/wow.min.js"></script>
+    <script src="~/Theme/js/animated.headline.js"></script>
+    <script src="~/Theme/js/jquery.magnific-popup.js"></script>
+
+    <!-- Date Picker -->
+    <script src="~/Theme/js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky -->
+    <script src="~/Theme/js/jquery.nice-select.min.js"></script>
+    <script src="~/Theme/js/jquery.sticky.js"></script>
+    <!-- Progress -->
+    <script src="~/Theme/js/jquery.barfiller.js"></script>
+
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="~/Theme/js/jquery.counterup.min.js"></script>
+    <script src="~/Theme/js/waypoints.min.js"></script>
+    <script src="~/Theme/js/jquery.countdown.min.js"></script>
+    <script src="~/Theme/js/hover-direction-snake.min.js"></script>
+
+    <!-- contact js -->
+    <script src="~/Theme/js/contact.js"></script>
+    <script src="~/Theme/js/jquery.form.js"></script>
+    <script src="~/Theme/js/jquery.validate.min.js"></script>
+    <script src="~/Theme/js/mail-script.js"></script>
+    <script src="~/Theme/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="~/Theme/js/plugins.js"></script>
+    <script src="~/Theme/js/main.js"></script>
+
+</body>
+</html>

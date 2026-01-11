@@ -1,0 +1,102 @@
+﻿@model WebThiTracNghiemOnline.Models.AccountUser
+
+@{
+    ViewBag.Title = "EditTeacher";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("EditTeacher", "AccountUser", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>Chỉnh sửa thông tin giáo viên</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NAMEUSER, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.NAMEUSER, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NAMEUSER, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ACCOUNT, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ACCOUNT, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ACCOUNT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PASS, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="password" name="PASS" value="********" class="form-control" />
+                                <input type="hidden" name="CurrentPASS" value="@Model.PASS" />
+                                @Html.ValidationMessageFor(model => model.PASS, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ROLE, "Chọn quyền", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("ROLE", (SelectList)ViewBag.List, "Chọn quyền", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ROLE, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IMG, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @if (!string.IsNullOrEmpty(Model.IMG))
+                                {
+                                    <p>Current Image Path: @Model.IMG</p>
+                                    <input type="hidden" name="CurrentIMG" value="@Model.IMG" />
+                                }
+                                <input type="file" name="imgFile" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.IMG, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SEX, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.SEX, new List<SelectListItem>
+                                {
+                                    new SelectListItem { Text = "Nam", Value = "Nam" },
+                                    new SelectListItem { Text = "Nữ", Value = "Nữ" }
+                                }, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SEX, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Chỉnh sửa" class="btn btn-primary btn-round ms-auto" />
+                                <a class="btn btn-warning btn-round ms-auto" href="@Url.Action("ListAccoutAdmin","AccountUser")">Trở về</a>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

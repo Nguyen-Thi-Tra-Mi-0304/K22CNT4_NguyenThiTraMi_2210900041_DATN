@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.Class>
+
+@{
+    ViewBag.Title = "ListClassToTeacher";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Danh sách lớp học</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="table table-striped table-bordered" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Học kỳ</th>
+                                    <th>Ngành nghề</th>
+                                    <th>Mã lớp</th>
+                                    <th>Tên lớp</th>
+                                    <th>Mô tả</th>
+                                    <th>Trạng thái</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@((ViewBag.Semester as SelectList).FirstOrDefault(s => s.Value == item.IDSEMESTER.ToString())?.Text)</td>
+                                        <td>@((ViewBag.Industry as SelectList).FirstOrDefault(i => i.Value == item.IDINDUSTRY.ToString())?.Text)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.KEYCLASS)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.NAMECLASS)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.DESCRIBE)</td>
+                                        <td style="color:@(item.STT == 1 ? "forestgreen" : "red")">
+                                            @(item.STT == 1 ? "Hoạt động" : "Không hoạt động")
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("DetailsStudentOnTeacher", new { id = item.ID })'"><i class="fa fa-info-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

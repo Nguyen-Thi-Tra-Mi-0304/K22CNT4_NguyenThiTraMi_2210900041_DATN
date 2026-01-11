@@ -1,0 +1,122 @@
+﻿@model WebThiTracNghiemOnline.Models.Exam
+@{
+    ViewBag.Title = "PreExam";
+    Layout = "~/Views/Shared/_LayoutNoBanner.cshtml";
+    var classList = ViewBag.ClassInfo as List<WebThiTracNghiemOnline.Models.ClassInfo>;
+}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<div class="courses-area section-padding40 fix">
+    <div class="container">
+        <div class="properties" style="font-size:20px;">
+            <img src="~/Theme/img/icon/home-button.png" alt="" style="width: 25px; height: 25px; margin-bottom: 5px;">
+            <a href="@Url.Action("ViewIndex","Home")">Trang chủ </a> /
+            <a href="@Url.Action("ViewListExam","ViewExam")">Danh sách bài thi của tôi </a> 
+        </div>
+        <!-- Single Exam Details -->
+        <div class="properties pb-20">
+            <div class="properties__card">
+                <div class="properties__caption ">
+                    @*<h2 class="text-primary text-center" style="font-size:35px; margin-bottom:20px;">Môn thi: @ViewBag.Subject.NAMESUBJECT</h2>*@
+
+                    <h3 class="font-weight-bold" style="margin-bottom:10px;">Tên bài thi: @Model.NAMEEXAM</h3>
+                    <h3 class="font-weight-bold" style="margin-bottom:10px;">Lớp: @ViewBag.ClassInfo.DisplayClass</h3>
+                    <h4 class="font-weight-bold" style="margin-bottom:15px;">Giảng viên: @ViewBag.Teacher.NAMEUSER</h4>
+
+                    <div class="exam-details" style="font-size:18px; line-height:1.8;">
+                        <p><strong>Mô tả bài thi:</strong> @Model.DESCRIBLE</p>
+                        <p><strong>Thời gian bắt đầu:</strong> @Model.CREATESTART.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p><strong>Thời gian kết thúc:</strong> @Model.CREATEEND.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p><strong>Thời gian làm bài:</strong> @Model.ASSIGNMENTTIME phút</p>
+                        <p><strong>Số câu hỏi:</strong> @ViewBag.Question câu</p>
+                        <p><strong>Số lần làm bài còn lại:</strong> @ViewBag.Number lần</p>
+                        <p><strong>Số lần đã thực hiện:</strong> @ViewBag.AttemptRecords lần</p>
+                        
+
+                    </div>
+                    @if (Model.STATUS == 1)
+                    {
+                        <div class="start-exam-btn" style="margin-top:30px;">
+                            <a href="javascript:void(0);" class="border-btn border-btn2">Chưa đến thời gian làm bài</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="start-exam-btn" style="margin-top:30px;">
+                            <!-- Kiểm tra nếu có mật khẩu thì mở modal, nếu không thì bắt đầu bài thi -->
+                            <button class="border-btn border-btn2" id="startExamBtn">Bắt đầu bài thi</button>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal nhập mật khẩu -->
+@if (!string.IsNullOrEmpty(Model.PASSWORD))
+{
+    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="font-size:22px" id="passwordModalLabel">Nhập mật khẩu để bắt đầu bài thi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="passwordForm" method="post" action="@Url.Action("ValidatePassword", "ViewExam", new { id = Model.IDEXAM })">
+                        <div class="form-group">
+                            <label for="examPassword" style="font-size:20px">Mật khẩu bài thi:</label>
+                        </div>
+                        <div class="form-group" style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%;">
+                            <input type="password" class="form-control" id="examPassword" name="examPassword" required style="flex: 1; margin-right: 10px; height: 50px;">
+                            <button type="submit" class="btn-primary" style="font-size: 16px; width: 100px; height: 50px;"> Xác nhận </button>
+                        </div>
+                    </form>
+                    <div id="error-message" class="alert alert-danger" style="margin-top: 10px; font-size: 16px; display:none"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var hasPassword = '@(!string.IsNullOrEmpty(Model.PASSWORD))' === 'True';
+        $('#startExamBtn').click(function (event) {
+            event.preventDefault();
+            if (hasPassword) {
+                $('#passwordModal').modal('show');
+            } else {
+                window.location.href = '@Url.Action("StartExam", "ViewExam", new { id = Model.IDEXAM })';
+            }
+        });
+        $('#passwordForm').submit(function (event) {
+        event.preventDefault(); // Ngăn chặn submit form mặc định
+
+        $.ajax({
+            url: '@Url.Action("ValidatePassword", "ViewExam")',
+            type: 'POST',
+            data: { id: '@Model.IDEXAM', examPassword: $('#examPassword').val() },
+            success: function (response) {
+                if (response.success) {
+                    window.location.href = '@Url.Action("StartExam", "ViewExam", new { id = Model.IDEXAM })';
+                } else {
+                    $('#error-message').text(response.message).show();
+                }
+            },
+            error: function () {
+                $('#error-message').text('Có lỗi xảy ra. Vui lòng thử lại sau.').show();
+            }
+        });
+    });
+});
+
+
+</script>

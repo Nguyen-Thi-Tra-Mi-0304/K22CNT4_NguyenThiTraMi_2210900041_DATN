@@ -1,0 +1,60 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.StudentViewModel>
+@{
+    ViewBag.Title = "DetailsStudentOnTeacher";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Danh sách học sinh</h4>
+                        <div class="ms-auto">
+                            <button class="btn btn-warning btn-round" onclick="location.href='@Url.Action("ListClassToTeacher", "ClassToTeacher")'">
+                                <i class="fa fa-home"></i>
+                                Trở về
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="table table-striped table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>Ngành nghề</th>
+                                    <th>Khóa học</th>
+                                    <th>Họ và tên</th>
+                                    <th>Tên tài khoản</th>
+                                    <th>Giới tính</th>
+                                    <th>Năm sinh</th>
+                                    <th>Email</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@((ViewBag.Industry as IEnumerable<SelectListItem>).FirstOrDefault(x => x.Value == item.IDINDUSTRY.ToString())?.Text ?? "N/A")</td>
+                                        <td>@((ViewBag.Course as IEnumerable<SelectListItem>).FirstOrDefault(x => x.Value == item.IDCOURSE.ToString())?.Text ?? "N/A")</td>
+                                        <td>@item.NAMESTUDENT</td>
+                                        <td>@item.ACCOUNT</td>
+                                        <td>@item.SEX</td>
+                                        <td>@item.BIRTHDAY.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.EMAIL</td>
+                                        <td class="text-center" style="color:@(item.STT == 1 ? "forestgreen" : "red")">
+                                            @(item.STT == 1 ? "Hoạt động" : "Không hoạt động")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@model WebThiTracNghiemOnline.Models.Subject
+
+@{
+    ViewBag.Title = "CreateSubject";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("CreateSubject", "Subject", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>Tạo mới môn học</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.Label("CODE", "Mã môn học", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="text" name="CODE" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("NAMESUBJECT", "Tên môn học", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="text" name="NAMESUBJECT" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("TINCHI", "Số tín chỉ", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="number" name="TINCHI" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="IDSEMESTER" class="control-label col-md-2">Chọn học kỳ</label>
+                            <div class="col-md-10">
+                                @Html.DropDownList("IDSEMESTER", (SelectList)ViewBag.Semester, "Chọn học kỳ", new { @class = "form-control" })
+                                @Html.ValidationMessage("IDSEMESTER", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("DESCRIBE", "Mô tả môn học", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <textarea name="DESCRIBE" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Thêm mới" class="btn btn-primary btn-round ms-auto" />
+                                <a class="btn btn-warning btn-round ms-auto" href="@Url.Action("ListSubject","Subject")">Trở về</a>
+                            </div>
+                        </div>
+                    </div>
+                    }
+
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

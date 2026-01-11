@@ -1,0 +1,97 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.Chapters>
+
+@{
+    ViewBag.Title = "ListChapters";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Danh sách chương theo lớp</h4>
+                        <div class="ms-auto">
+                            <button class="btn btn-primary btn-round " onclick="location.href='@Url.Action("CreateChapter","Chapter", new {id = ViewBag.SubjectId})'">
+                                <i class="fa fa-plus"></i>
+                                Thêm mới
+                            </button>
+                            <button class="btn btn-warning btn-round " onclick="location.href='@Url.Action("ListSubjectByIdTeacher","Chapter")'">
+                                <i class="fa fa-home"></i>
+                                Trở về
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="table table-striped table-bordered" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Tên chương</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Trạng thái</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var chapter in Model)
+                                {
+                                    <tr>
+                                        <td>@chapter.NAMECHAPTER</td>
+                                        <td>@chapter.CREATEAT.ToString("dd/MM/yyyy")</td>
+                                        @if (chapter.STT == 1)
+                                        {
+                                            <td style="color:forestgreen">
+                                                Hoạt động
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red">
+                                                Không hoạt động
+                                            </td>
+                                        }
+                                    <td>
+                                        <button class="btn btn-primary" onclick="location.href='@Url.Action("EditChapter", new { id = chapter.IDCHAPTER })'"><i class="fa fa-edit"></i></button>
+                                        <button type="button" id="xoatintucmodalt" class="btn btn-warning" onclick="confirmDelete('@Url.Action("DeleteChapter", "Chapter", new { id = chapter.IDCHAPTER })')"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function confirmDelete(deleteUrl) {
+        if (confirm("Bạn có chắc chắn muốn xóa chương này?")) {
+            $.ajax({
+                url: deleteUrl,
+                type: "POST",
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    } else {
+                        toastr.error(response.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                },
+                error: function () {
+                    toastr.error("Đã xảy ra lỗi khi xóa chương này.");
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,64 @@
+﻿@model WebThiTracNghiemOnline.Models.Class
+
+@{
+    ViewBag.Title = "EditClass";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("EditClass", "Class", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h4>Chỉnh sửa lớp học</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.ID)
+
+                            <div>
+                                <label for="IDINDUSTRY">Ngành:</label>
+                                @Html.DropDownList("IDINDUSTRY", ViewBag.Industry as SelectList, "Chọn ngành", new { @class = "form-control" })
+                            </div>
+                            <div>
+                                <label for="IDSEMESTER">Học kỳ:</label>
+                                @Html.DropDownList("IDSEMESTER", ViewBag.Semester as SelectList, "Chọn học kỳ", new { @class = "form-control" })
+                            </div>
+                            <div>
+                                <label for="IDTEACHER">Giáo viên:</label>
+                                @Html.DropDownList("IDTEACHER", ViewBag.Teacher as SelectList, "Chọn giáo viên", new { @class = "form-control" })
+                            </div>
+                            <div>
+                                <label for="KEYCLASS">Mã lớp:</label>
+                                @Html.TextBoxFor(model => model.KEYCLASS, new { @class = "form-control", placeholder = "Nhập mã lớp" })
+                            </div>
+                            <div>
+                                <label for="NAMECLASS">Tên lớp:</label>
+                                @Html.TextBoxFor(model => model.NAMECLASS, new { @class = "form-control", placeholder = "Nhập tên lớp" })
+                            </div>
+                            <div>
+                                <label for="DESCRIBE">Mô tả:</label>
+                                @Html.TextAreaFor(model => model.DESCRIBE, new { @class = "form-control", placeholder = "Nhập mô tả" })
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                <a href="@Url.Action("ListClass", "Class")" class="btn btn-secondary">Trở về</a>
+                            </div>
+                        </div>
+                    }
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

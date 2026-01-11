@@ -1,0 +1,96 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.ExamRecordViewModel>
+@{
+    ViewBag.Title = "ExamComplete";
+    Layout = "~/Views/Shared/_LayoutNoBanner.cshtml";
+}
+
+<style>
+    .pagination {
+        text-align: center;
+        padding: 20px 0;
+        justify-content: center;
+    }
+
+        .pagination a {
+            font-size:15px;
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            color: #007bff;
+        }
+
+            .pagination a.active {
+                font-weight: bold;
+                color: white;
+                background-color: #007bff;
+            }
+</style>
+
+<div class="courses-area section-padding40 fix">
+    <div class="container">
+        <div class="properties" style="font-size:20px;">
+            <img src="~/Theme/img/icon/home-button.png" alt="" style="width: 25px; height: 25px; margin-bottom: 5px;">
+            <a href="#">Trang cá nhân </a> /
+            <a href="#">Danh sách bài thi đã làm </a>
+        </div>
+        <!-- Danh sách các bài thi -->
+        <div class="properties pb-20">
+            <div class="properties__card">
+                <div class="properties__caption ">
+                    <h2 class="text-primary text-center" style="font-size:35px; margin-bottom:20px;">
+                        Danh sách bài thi đã thực hiện
+                    </h2>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var record in Model)
+                        {
+                            if (record != null)
+                            {
+                                <div style="border-bottom: 1px solid blueviolet; margin-bottom: 15px;">
+                                    <h3 class="font-weight-bold" style="margin-bottom:10px;">
+                                        Môn thi: @record.SubjectName (Lần @record.Attempt)
+                                    </h3>
+                                    <h3 class="font-weight-bold" style="margin-bottom:10px;">Tên bài thi: @record.ExamName</h3>
+                                    <p><strong>Lớp:</strong> @record.ClassName</p>
+                                    <p><strong>Thời gian bắt đầu:</strong> @record.TimeStart - <strong>Thời gian kết thúc:</strong> @record.TimeEnd</p>
+                                    <div style="font-size:18px; line-height:1.8; display:flex; justify-content:space-between">
+                                    <p style="font-weight:bold"><strong>Điểm số:</strong> @record.Score</p>
+                                        @if (record.ShowAnswers == true)
+                                        {
+                                            <a href="@Url.Action("DetailsExam", "ViewExam", new { id = record.ExamRecordId })">Xem chi tiết ...</a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <h3 class="font-weight-bold" style="margin-bottom:10px;height:300px">
+                            Không có bài thi nào đã thực hiện
+                        </h3>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="@Url.Action("ExamComplete", new { page = ViewBag.CurrentPage - 1 })">Previous</a>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="@Url.Action("ExamComplete", new { page = i })" class="@(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("ExamComplete", new { page = ViewBag.CurrentPage + 1 })">Next</a>
+        }
+    </div>
+</div>
+</div>

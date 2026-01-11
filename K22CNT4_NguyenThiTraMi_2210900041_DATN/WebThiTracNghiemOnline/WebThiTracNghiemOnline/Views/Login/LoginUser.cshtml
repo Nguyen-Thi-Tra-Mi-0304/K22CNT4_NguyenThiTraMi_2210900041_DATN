@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "LoginUser";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<main class="login-body">
+
+    <div class="login-form">
+        <!-- logo-login -->
+        <div class="logo-login">
+            <img src="~/Theme/img/logo/logoschool.png" alt="">
+        </div>
+        <h2>Đăng Nhập</h2>
+
+        @using (Html.BeginForm("Login_AccountUser", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-input">
+                <label for="name">Tài khoản</label>
+                <input type="text" value="" name="Username">
+            </div>
+            <div class="form-input">
+                <label for="name">Mật Khẩu</label>
+                <input type="password" value="" name="Password">
+            </div>
+            <div class="form-input pt-30">
+                <input type="submit" name="submit" value="Đăng Nhập">
+            </div>
+            if (!String.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <div class="alert alert-danger mt-3">@ViewBag.ErrorMessage</div>
+            }
+        }
+        <!-- Forget Password -->
+        <a href="@Url.Action("Forgot_Password","Login")" class="forget">Quên mật khẩu?</a>
+    </div>
+
+</main>
+

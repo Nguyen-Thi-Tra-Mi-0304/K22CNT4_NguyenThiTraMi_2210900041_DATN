@@ -1,0 +1,23 @@
+﻿namespace WebThiTracNghiemOnline.Migrations
+{
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<WebThiTracNghiemOnline.Context.WebsiteTracNghiemDBContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
+
+        protected override void Seed(WebThiTracNghiemOnline.Context.WebsiteTracNghiemDBContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
+            //  to avoid creating duplicate seed data.
+        }
+    }
+}

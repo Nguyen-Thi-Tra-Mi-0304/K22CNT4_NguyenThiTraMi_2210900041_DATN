@@ -1,0 +1,82 @@
+﻿@model WebThiTracNghiemOnline.Models.Semester
+
+@{
+    ViewBag.Title = "EditSemester";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm("EditSemester", "Industry", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>Chỉnh sửa học kỳ</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <!-- Dropdown chọn khóa học -->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.COURSEID, "Chọn khóa học", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("COURSEID", (SelectList)ViewBag.Course, "Chọn khóa học", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.COURSEID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Tên học kỳ -->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NAMESEMESTER, "Tên học kỳ", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.NAMESEMESTER, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.NAMESEMESTER, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Ngày bắt đầu -->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.STARTDAY, "Ngày bắt đầu", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.STARTDAY, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                @Html.ValidationMessageFor(model => model.STARTDAY, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <!-- Ngày kết thúc -->
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ENDDAY, "Ngày kết thúc", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.ENDDAY, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                                @Html.ValidationMessageFor(model => model.ENDDAY, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <!-- Nút lưu -->
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Lưu thay đổi" class="btn btn-primary btn-round" />
+                                <a class="btn btn-warning btn-round" href="@Url.Action("ListSemester", "Industry")">Hủy</a>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

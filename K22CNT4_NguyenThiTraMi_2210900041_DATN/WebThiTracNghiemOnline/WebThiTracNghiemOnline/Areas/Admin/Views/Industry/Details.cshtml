@@ -1,0 +1,65 @@
+﻿@model WebThiTracNghiemOnline.Models.Industry
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4>Thông tin chi tiết ngành nghề</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CODE)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CODE)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.NAMEINDUSTRY)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.NAMEINDUSTRY)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DISCRIBLR)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DISCRIBLR)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.CREATEAT)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.CREATEAT)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.STT)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.STT)
+                        </dd>
+
+                    </dl>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a class="btn btn-warning btn-round ms-auto" href="@Url.Action("ListIndustry","Industry")">Trở về</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

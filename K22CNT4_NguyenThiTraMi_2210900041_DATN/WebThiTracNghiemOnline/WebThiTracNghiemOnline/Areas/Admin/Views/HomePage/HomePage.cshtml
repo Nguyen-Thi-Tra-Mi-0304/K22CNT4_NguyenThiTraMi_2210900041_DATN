@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "HomePage";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Giáo viên</p>
+                                <h4 class="card-title">@ViewBag.Teacher</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-info bubble-shadow-small">
+                                <i class="fas fa-user-alt"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Học sinh</p>
+                                <h4 class="card-title">@ViewBag.Student</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-success bubble-shadow-small">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Bài thi</p>
+                                <h4 class="card-title">@ViewBag.ExamCount</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon">
+                            <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                                <i class="far fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                            <div class="numbers">
+                                <p class="card-category">Lớp học</p>
+                                <h4 class="card-title">@ViewBag.ClassCount</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-round">
+                <div class="card-body">
+                    <div class="card-head-row card-tools-still-right">
+                        <div class="card-title">Lớp học mới</div>
+                    </div>
+                    <div class="card-list py-4">
+                        @if (ViewBag.Class != null)
+                        {
+                            foreach (var item in ViewBag.Class)
+                            {
+                                <div class="item-list">
+                                    <div class="info-user ms-3">
+                                        <div class="username">@item.NAMECLASS _ @item.KEYCLASS</div>
+                                        <div class="status">Ngày tạo: @item.CREATEAT.ToString("dd/MM/yyyy")</div>
+                                    </div>
+                                    @if (item.STT == 1)
+                                    {
+                                        <span class="badge badge-primary">Đang hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-warning">Đã kết thúc</span>
+                                    }
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning" role="alert">
+                                Không có lớp học mới.
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card card-round">
+                <div class="card-header">
+                    <div class="card-head-row card-tools-still-right">
+                        <div class="card-title">Danh sách bài thi đã tạo gần đây</div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <!-- Projects table -->
+                        <table class="table align-items-center mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Mã số</th>
+                                    <th scope="col">Tên bài thi</th>
+                                    <th scope="col">Mô tả</th>
+                                    <th scope="col" class="text-end">Ngày tạo</th>
+                                    <th scope="col" class="text-end">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.Exam != null)
+                                {
+                                    foreach (var exam in ViewBag.Exam)
+                                    {
+                                        <tr>
+                                            <td>@exam.IDEXAM</td>
+                                            <td>@exam.NAMEEXAM</td>
+                                            <td>@exam.DESCRIBLE</td>
+
+                                            <td class="text-end">@exam.CREATEAT.ToString("dd/MM/yyyy")</td>
+                                            @if (exam.STATUS == 1)
+                                            {
+                                                <td class="text-end">
+                                                    <span class="badge badge-warning">Chưa bắt đầu</span>
+                                                </td>
+                                            }
+                                            else if (exam.STATUS == 2)
+                                            {
+                                                <td class="text-end">
+                                                    <span class="badge badge-success">Đang làm</span>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-end">
+                                                    <span class="badge badge-danger">Đã kết thúc</span>
+                                                </td>
+                                            }
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center">No exams available</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

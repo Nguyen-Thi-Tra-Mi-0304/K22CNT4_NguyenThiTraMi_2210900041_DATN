@@ -1,0 +1,336 @@
+﻿
+
+@{
+    ViewBag.Title = "ViewIndex";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<style>
+    /* Định dạng bảng */
+    #calendar-container {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    #calendar {
+        width: 75%;
+        border-collapse: collapse;
+        background-color: rgba(255, 255, 255, 0.9); /* Nền bảng mờ để nổi bật */
+        color: #333; /* Màu chữ chính */
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        #calendar th, #calendar td {
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Đường viền nhạt */
+            text-align: center;
+            vertical-align: top;
+            padding: 10px;
+        }
+
+        #calendar th {
+            background: #ffffff; /* Gradient phần đầu bảng */
+            color: black;
+            font-weight: bold;
+        }
+
+        #calendar td {
+            background-color: #ffffff;
+            height: 100px;
+            position: relative;
+            color: #333;
+        }
+
+    /* Định dạng ngày hiện tại */
+    .calendar-day.today {
+        background-color: rgba(255, 223, 107, 0.8); /* Màu vàng nhạt */
+        border: 2px solid #ffcc00;
+    }
+
+    /* Số ngày trong lịch */
+    .date-number {
+        font-weight: bold;
+        font-size: 16px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: #333;
+    }
+
+    /* Danh sách bài thi */
+    .calendar-day ul {
+        list-style: none;
+        margin-top: 15px;
+        padding: 0;
+    }
+
+        .calendar-day ul li {
+            font-size: 14px;
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+            /* Trạng thái bài thi */
+            .calendar-day ul li.exam-not-started {
+                background-color: rgba(255, 255, 153, 0.8); /* Màu vàng nhạt */
+                color: black;
+                border: 1px solid #ff9900;
+            }
+
+            .calendar-day ul li.exam-in-progress {
+                background-color: rgba(76, 175, 80, 0.8); /* Màu xanh lá nhạt */
+                color: white;
+                border: 1px solid #4caf50;
+            }
+
+            .calendar-day ul li.exam-completed {
+                background-color: rgba(244, 67, 54, 0.8); /* Màu đỏ nhạt */
+                color: white;
+                border: 1px solid #f44336;
+            }
+
+    /* Tiêu đề ngày giờ */
+    #current-date-time {
+        background: linear-gradient(to right, #c054ff, #5274ff);
+        color: white;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 10px 10px 0 0;
+    }
+
+    /* Hiệu ứng hover cho ô lịch */
+    #calendar td:hover {
+        background-color: rgba(200, 200, 255, 0.5); /* Màu nhấn nhạt */
+        cursor: pointer;
+    }
+</style>
+
+
+
+<!-- Courses area End -->
+<section class="about-area1 fix pt-10">
+    <div class="support-wrapper align-items-center">
+        <div class="left-content1">
+            <div class="about-icon">
+                <img src="~/Theme/img/icon/about.svg" alt="">
+            </div>
+            <!-- Section Title -->
+            <div class="section-tittle section-tittle2">
+                <div class="front-text">
+                    <h2>Rèn luyện kỹ năng thi trắc nghiệm trực tuyến với giáo viên hàng đầu</h2>
+                    <p>
+                        Nền tảng tự động hóa mọi quy trình thi trực tuyến của bạn. Khám phá các công cụ và phương pháp để cải thiện kết quả học tập và tự tin hơn trong các kỳ thi trắc nghiệm.
+                    </p>
+                </div>
+            </div>
+            <!-- Features List -->
+            <div class="single-features">
+                <div class="features-icon">
+                    <img src="~/Theme/img/icon/right-icon.svg" alt="">
+                </div>
+                <div class="features-caption">
+                    <p>Phương pháp làm bài thi hiệu quả, giúp bạn đạt điểm cao trong các kỳ thi.</p>
+                </div>
+            </div>
+            <div class="single-features">
+                <div class="features-icon">
+                    <img src="~/Theme/img/icon/right-icon.svg" alt="">
+                </div>
+                <div class="features-caption">
+                    <p>Tham gia cộng đồng hàng triệu học viên đang cùng nhau học và thi trực tuyến.</p>
+                </div>
+            </div>
+            <div class="single-features">
+                <div class="features-icon">
+                    <img src="~/Theme/img/icon/right-icon.svg" alt="">
+                </div>
+                <div class="features-caption">
+                    <p>Trải nghiệm học và thi trực tuyến dễ dàng, tự nhiên, bất cứ khi nào và ở đâu.</p>
+                </div>
+            </div>
+        </div>
+        <div class="right-content1">
+            <div class="support-wrapper align-items-center">
+                <div class="right-content3">
+                    <!-- img -->
+                    <div class="right-img" style="width:300px; height:300px">
+                        <img src="~/Theme/img/gallery/about3.png" alt="">
+                    </div>
+                </div>
+                <div class="left-content3">
+                    <!-- section tittle -->
+                    <div class="section-tittle section-tittle2 mb-20">
+                        <div class="front-text">
+                            <h2 class="">Kết quả học tập từ các bài thi bạn sẽ tham gia</h2>
+                        </div>
+                    </div>
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="~/Theme/img/icon/right-icon.svg" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p>Cải thiện kỹ năng và kiến thức thông qua các bài thi trắc nghiệm chất lượng.</p>
+                        </div>
+                    </div>
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="~/Theme/img/icon/right-icon.svg" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p>Tham gia cùng hàng triệu người trên toàn thế giới trong việc kiểm tra và nâng cao trình độ học vấn.</p>
+                        </div>
+                    </div>
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="~/Theme/img/icon/right-icon.svg" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p>Thời gian làm bài linh hoạt và dễ dàng truy cập, giúp bạn học mọi lúc mọi nơi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--? About Area-3 Start -->
+<section class="about-area1 fix pt-10">
+    <div id="calendar-container" style="padding: 20px; display:flex; justify-content:center">
+        <table id="calendar" border="1" cellspacing="0" cellpadding="10" style="width: 75%; border-collapse: collapse;">
+            <thead>
+                <tr class="calendar1">
+                    <th colspan="7" style="text-align: center; font-size: 18px; padding: 10px; background: linear-gradient(to right, #5274ff, #c054ff);" id="current-date-time">
+                        <!-- Nội dung sẽ được JavaScript cập nhật -->
+                    </th>
+                </tr>
+                <tr>
+                    <th>Chủ nhật</th>
+                    <th>Thứ hai</th>
+                    <th>Thứ ba</th>
+                    <th>Thứ tư</th>
+                    <th>Thứ năm</th>
+                    <th>Thứ sáu</th>
+                    <th>Thứ bảy</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var exams = ViewBag.Exams as List<WebThiTracNghiemOnline.Models.ExamModel>;
+                    var daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                    var firstDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).DayOfWeek;
+                    int day = 1 - (int)firstDay;
+
+                    // Cờ dừng khi tất cả các ngày đã được hiển thị
+                    bool stopRendering = false;
+
+                    for (int week = 0; week < 6; week++)
+                    {
+                        if (stopRendering)
+                        {
+                            break; // Đặt trong dấu {}
+                        }
+
+                        <tr>
+                            @for (int weekday = 0; weekday < 7; weekday++)
+                            {
+                                if (day < 1 || day > daysInMonth)
+                                {
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    var currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, day);
+                                    var examsOnDay = exams.Where(e => e.DateTime.Date == currentDate.Date).ToList();
+
+                                    <td class="calendar-day @(currentDate.Date == DateTime.Now.Date ? "today" : "")">
+                                        <div class="date-number">@day</div>
+
+                                        @if (examsOnDay != null && examsOnDay.Any())
+                                        {
+                                            <ul>
+                                                @foreach (var exam in examsOnDay)
+                                                {
+                                                    // Tính toán trạng thái bài thi
+                                                    var examStartTime = exam.DateTime;
+                                                    var examEndTime = examStartTime.AddMinutes(exam.ASSIGNMENTTIME);
+                                                    string examStatusClass;
+                                                    string examStatusText;
+
+                                                    if (exam.Status == 1)
+                                                    {
+                                                        examStatusClass = "exam-not-started";
+                                                        examStatusText = "Chưa bắt đầu";
+                                                    }
+                                                    else if (exam.Status == 2)
+                                                    {
+                                                        examStatusClass = "exam-in-progress";
+                                                        examStatusText = "Đang làm bài";
+                                                    }
+                                                    else
+                                                    {
+                                                        examStatusClass = "exam-completed";
+                                                        examStatusText = "Đã kết thúc";
+                                                    }
+
+                                                    // Hiển thị bài thi với trạng thái
+                                                    <li class="@examStatusClass">
+                                                        <strong>@exam.SubjectName</strong> - @exam.NameExam<br />
+                                                        @exam.DateTime.ToString("hh:mm tt") - @exam.ASSIGNMENTTIME phút<br />
+                                                        <span>Trạng thái: @examStatusText</span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </td>
+                                }
+
+                                day++;
+                                if (day > daysInMonth)
+                                {
+                                    stopRendering = true;
+                                }
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<script>
+    // Hàm để cập nhật thời gian hiện tại
+    function updateDateTime() {
+        const element = document.getElementById('current-date-time');
+
+        // Lấy ngày giờ hiện tại
+        const now = new Date();
+
+        // Mảng các thứ trong tuần bằng tiếng Việt
+        const days = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
+
+        // Định dạng thời gian
+        const day = days[now.getDay()];
+        const date = now.getDate().toString().padStart(2, '0');
+        const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Tháng bắt đầu từ 0
+        const year = now.getFullYear();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+
+        // Gộp chuỗi ngày giờ
+        const formattedDateTime = `${day}, ${date}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+
+        // Cập nhật nội dung cho thẻ
+        element.textContent = formattedDateTime;
+    }
+
+    // Cập nhật thời gian mỗi giây
+    setInterval(updateDateTime, 1000);
+
+    // Gọi hàm lần đầu để hiển thị ngay khi tải trang
+    updateDateTime();</script>

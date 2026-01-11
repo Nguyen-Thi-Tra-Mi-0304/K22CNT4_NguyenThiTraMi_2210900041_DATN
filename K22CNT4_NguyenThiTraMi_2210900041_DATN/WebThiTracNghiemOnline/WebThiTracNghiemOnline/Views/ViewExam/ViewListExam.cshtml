@@ -1,0 +1,105 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.Exam>
+@{
+    ViewBag.Title = "ViewListExam";
+    Layout = "~/Views/Shared/_LayoutNoBanner.cshtml";
+    var classList = ViewBag.ClassList as List<WebThiTracNghiemOnline.Models.ClassInfo>;
+    var teacherList = ViewBag.NameList as List<WebThiTracNghiemOnline.Models.AccountUser>;
+    var subList = ViewBag.NameSubject as List<WebThiTracNghiemOnline.Models.Subject>;
+}
+<div class="courses-area section-padding40 fix">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 col-lg-8">
+                <div class="section-tittle text-center mb-55">
+                    <h2>Danh sách các bài thi</h2>
+                </div>
+            </div>
+        </div>
+        <div class="courses-actives">
+            <!-- Single -->
+            @foreach (var item in Model)
+            {
+                <div class="properties pb-20">
+                    <div class="properties__card">
+                        <div class="properties__img overlay1">
+                            <img src="~/Theme/img/gallery/featured1.png" alt="">
+                        </div>
+                        <div class="properties__caption">
+                            <h2 style="text-align:center">@item.NAMEEXAM</h2>
+                            <p>
+                                @if (classList != null)
+                                {
+                                    // Tìm thông tin lớp dựa trên IDCLASS
+                                    var classInfo = classList.FirstOrDefault(c => c.ID == item.IDCLASS);
+                                    if (classInfo != null)
+                                    {
+                                        <text>Lớp: @classInfo.DisplayClass</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Lớp không xác định</text>
+                                    }
+                                }
+                                else
+                                {
+                                    <text>Lớp không xác định</text>
+                                }
+                            </p>
+                            <p>
+                                @if (subList != null)
+                                {
+                                    var sub = subList.FirstOrDefault(s => s.ID == item.IDSUBJECT);
+                                    if (sub != null)
+                                    {
+                                        <text>Môn học: @sub.NAMESUBJECT</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Môn học: Không xác định</text>
+                                    }
+                                }
+                            </p>
+                            <p>
+                                @if (teacherList != null)
+                                {
+                                    var teacherInfo = teacherList.FirstOrDefault(c => c.ID == item.IDTEACHER);
+                                    if (teacherInfo != null)
+                                    {
+                                        <text>Giáo viên: @teacherInfo.NAMEUSER</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Giáo viên: Cô hồn Dã quỷ</text>
+                                    }
+                                }
+
+                            </p>
+                            <p>
+                                Thời gian bắt đầu: @item.CREATESTART
+                            </p>
+                            <p>
+                                Thời gian kết thúc : @item.CREATEEND
+                            </p>
+                            @if (item.STATUS == 1)
+                            {
+                                <p>
+                                    Trạng thái bài thi :<span style="color:orange"> Đang chuẩn bị</span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    Trạng thái bài thi :<span style="color:green"> Đã bắt đầu</span>
+                                </p>
+                            }
+                            <a href="@Url.Action("PreExam","ViewExam", new {id = item.IDEXAM})" class="border-btn border-btn2">Bắt đầu</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+

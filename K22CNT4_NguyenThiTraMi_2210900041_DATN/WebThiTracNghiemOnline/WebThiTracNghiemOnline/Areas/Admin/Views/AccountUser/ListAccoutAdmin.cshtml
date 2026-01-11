@@ -1,0 +1,168 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.AccountUser>
+
+@{
+    ViewBag.Title = "ListAccoutAdmin";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="card-title">Danh sách giảng viên</h4>
+                        <div class="ms-auto">
+                            <button class="btn btn-success btn-round" data-bs-toggle="modal" data-bs-target="#importExcelModal">
+                                <i class="fa fa-file-excel"></i>
+                                Nhập Excel
+                            </button>
+                            <button class="btn btn-primary btn-round" onclick="location.href='@Url.Action("CreateTeacher","AccountUser")'">
+                                <i class="fa fa-plus"></i>
+                                Thêm mới
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="table table-striped table-bordered" style="text-align:center">
+                            <thead>
+                                <tr role="row">
+                                    <th>
+                                        Họ và Tên
+                                    </th>
+                                    <th>
+                                        Tên tài khoản
+                                    </th>
+                                    <th>
+                                        Giới tính
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Quyền
+                                    </th>
+                                    <th style="text-align:center">
+                                        Hành động
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NAMEUSER)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ACCOUNT)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SEX)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EMAIL)
+                                        </td>
+                                        <td>@((ViewBag.List as SelectList).FirstOrDefault(i => i.Value == item.ROLE.ToString())?.Text)</td>
+                                        <td style="text-align:center">
+                                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditTeacher", new { id = item.ID })'"><i class="fa fa-edit"></i></button>
+                                            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("DetailsTeacher", new { id = item.ID })'"><i class="fa fa-info-circle"></i></button>
+                                            <button type="button" class="btn btn-warning" onclick="confirmDelete('@Url.Action("DeleteTeacher", "AccountUser", new { id = item.ID })')"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Import Excel -->
+<div class="modal fade" id="importExcelModal" tabindex="-1" aria-labelledby="importExcelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importExcelModalLabel">Nhập danh sách giảng viên từ Excel</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="importExcelForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="excelFile" class="form-label">Chọn file Excel</label>
+                        <input type="file" class="form-control" id="excelFile" name="excelFile" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#importExcelForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '@Url.Action("ImportExcel", "AccountUser")', 
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $('#importExcelModal').modal('hide');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    } else {
+                        toastr.error(response.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                },
+                error: function () {
+                    toastr.error("Đã xảy ra lỗi khi upload file.");
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+    function confirmDelete(deleteUrl) {
+        if (confirm("Bạn có chắc chắn muốn xóa người dùng này?")) {
+            $.ajax({
+                url: deleteUrl,
+                type: "POST",
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    } else {
+                        toastr.error(response.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                },
+                error: function () {
+                    toastr.error("Đã xảy ra lỗi khi xóa người dùng.");
+                }
+            });
+        }
+    }
+</script>

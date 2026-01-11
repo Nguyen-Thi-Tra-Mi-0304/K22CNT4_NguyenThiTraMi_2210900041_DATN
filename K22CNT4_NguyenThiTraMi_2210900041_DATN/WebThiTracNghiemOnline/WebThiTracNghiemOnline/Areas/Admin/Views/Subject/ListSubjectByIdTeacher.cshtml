@@ -1,0 +1,160 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.Subject>
+
+@{
+    ViewBag.Title = "ListSubjectByIdTeacher";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    #chaptersList li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #chaptersList button {
+        margin-left: 5px;
+    }
+</style>
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Danh sách môn học</h4>
+                        <button class="btn btn-primary btn-round ms-auto" onclick="location.href='@Url.Action("CreateSubjectByTeacher","Subject")'">
+                            <i class="fa fa-plus"></i>
+                            Thêm mới
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="table table-striped table-bordered" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Mã môn học
+                                    </th>
+                                    <th>
+                                        Tên môn học
+                                    </th>
+                                    <th>
+                                        Số tín chỉ
+                                    </th>
+                                    <th>
+                                        Học kỳ
+                                    </th>
+                                    <th>
+                                        Mô tả
+                                    </th>
+                                    <th>
+                                        Trạng thái
+                                    </th>
+
+                                    <th> Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NAMESUBJECT)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TINCHI)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IDSEMESTER)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DESCRIBE)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.STT)
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("GetchapterBySubject", new { idSubject = item.ID })'">Chương</button>
+                                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("EditTeacher", new { id = item.ID })'">Chỉnh Sửa</button>
+                                            <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("DetailsTeacher", new { id = item.ID })'">Chi Tiết</button>
+                                            <button type="button" id="xoatintucmodalt" class="btn btn-warning" onclick="confirmDelete('@Url.Action("DeleteThongBao", "MainAdmin", new { id = item.ID })')">Xóa</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Danh sách chương:</h5>
+            </div>
+            <div class="modal-body">
+                <div id="chaptersList" style="width: 100%; text-align: center;"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-9">
+                    <input type="text" id="productName" class="form-control" placeholder="Tên Chương">
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-success" style="text-align: center;" onclick="addProduct()">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+    $('button[data-target="#exampleModal"]').on('click', function() {
+        var subjectId = $(this).data('product-id');
+        $.ajax({
+            url: '@Url.Action("GetChapters", "Subject")',
+            type: 'GET',
+            data: { id: subjectId },
+            success: function (data) {
+                var chaptersHtml = '';
+                if (data.length > 0) {
+                    chaptersHtml = '<ul class="list-unstyled">';
+                    $.each(data, function (index, chapter) {
+                        chaptersHtml += '<li class="d-flex justify-content-between align-items-center margin-bottom-5px">' +
+                                            chapter.Name +
+                                            '<div>' +
+                                                '<button type="button" class="btn btn-primary btn-sm" onclick="editChapter(\'' + chapter.Id + '\')">Sửa</button>' + ' ' +
+                                                '<button type="button" class="btn btn-danger btn-sm ml-2" onclick="deleteChapter(\'' + chapter.Id + '\')">Xóa</button>' +
+                                            '</div>' +
+                                        '</li>';
+                    });
+                    chaptersHtml += '</ul>';
+                } else {
+                    chaptersHtml = '<p>Chưa có chương được tạo cho môn này.</p>';
+                }
+                $('#chaptersList').html(chaptersHtml);
+                $('#exampleModal').modal('show'); // Hiển thị modal sau khi cập nhật nội dung
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('Lỗi chi tiết:', textStatus, errorThrown);
+                alert('Đã xảy ra lỗi khi tải dữ liệu. Vui lòng kiểm tra bảng điều khiển để biết thêm chi tiết.');
+            }
+        });
+    });
+});
+
+</script>

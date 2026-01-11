@@ -1,0 +1,263 @@
+﻿@model WebThiTracNghiemOnline.Models.ExamDetailsViewModel
+@{
+    ViewBag.Title = "DetailsExam";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.18/jspdf.plugin.autotable.min.js"></script>
+
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12 d-flex pb-2">
+            <button class="btn btn-warning btn-round ms-auto" onclick="location.href='@Url.Action("ListExam","Exam")'">
+                <i class="fa fa-home"></i>
+                Trở về
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card card-round">
+                <div class="card-body">
+                    <h4>Thông tin chi tiết đề thi</h4>
+                    <hr />
+                    <div class="row">
+                        <!-- Cột thứ nhất -->
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Mã môn học</dt>
+                                <dd>@Model.Exam.IDSUBJECT</dd>
+
+                                <dt>Học kỳ</dt>
+                                <dd>@Model.Exam.IDSEMESTER</dd>
+
+                                <dt>Lớp</dt>
+                                <dd>@Model.Exam.IDCLASS</dd>
+
+                                <dt>Tên bài thi</dt>
+                                <dd>@Model.Exam.NAMEEXAM</dd>
+
+                                <dt>Mô tả bài thi</dt>
+                                <dd>@Model.Exam.DESCRIBLE</dd>
+
+                                <dt>Ngày tạo</dt>
+                                <dd>@Model.Exam.CREATEAT</dd>
+
+                                <dt>Ngày cập nhật</dt>
+                                <dd>@Model.Exam.CREATEUPDATE</dd>
+
+                                <dt>Thời gian bắt đầu thi</dt>
+                                <dd>@Model.Exam.CREATESTART</dd>
+
+                                <dt>Thời gian kết thúc</dt>
+                                <dd>@Model.Exam.CREATEEND</dd>
+                            </dl>
+                        </div>
+
+                        <!-- Cột thứ hai -->
+                        <div class="col-md-6">
+                            <dl class="dl-horizontal">
+                                <dt>Thời gian làm bài</dt>
+                                <dd>@Model.Exam.ASSIGNMENTTIME phút</dd>
+
+                                <dt>Số lần làm bài</dt>
+                                <dd>@Model.Exam.NUMBER lần</dd>
+
+                                <dt>Mật khẩu đề thi</dt>
+                                <dd>@Model.Exam.PASSWORD</dd>
+
+                                <dt>Trạng thái</dt>
+                                @if (Model.Exam.STATUS == 1)
+                                {
+                                    <dd>
+                                        Chưa bắt đầu
+                                    </dd>
+                                }
+                                else if (Model.Exam.STATUS == 2)
+                                {
+                                    <dd style="color: forestgreen">
+                                        Đang làm
+                                    </dd>
+                                }
+                                else
+                                {
+                                    <dd style="color:red">
+                                        Đã kết thúc
+                                    </dd>
+                                }
+
+                                <dt>Trộn câu hỏi</dt>
+                                <dd>@Model.Exam.MIXQUESTION</dd>
+
+                                <dt>Trộn đáp án</dt>
+                                <dd>@Model.Exam.MIXANSWERS</dd>
+
+                                <dt>Hiển thi điểm sau khi làm xong </dt>
+                                <dd>@Model.Exam.SHOWPOINT</dd>
+
+                                <dt>Hiển thị đáp án sau khi làm xong</dt>
+                                <dd>@Model.Exam.SHOWANSWERS</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-primary card-round">
+                <div class="card-header">
+                    <div class="card-head-row">
+                        <div class="card-title">Số lượng câu hỏi trong đề thi: @ViewBag.TotalQuestionCount</div>
+                    </div>
+                </div>
+                <div class="card-body pb-0">
+                    <div class="mb-4 mt-2">
+                        <h3>Dễ: @ViewBag.EasyCount</h3>
+                        <h3>Trung bình: @ViewBag.MediumCount</h3>
+                        <h3>Khó: @ViewBag.HardCount</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-round">
+                <div class="card-body pb-0">
+                    <p class="text-muted">Số lượng học sinh</p>
+                    <h2 class="mb-2">@ViewBag.StudentCount</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-round">
+                <div class="card-header">
+                    <h3 class="card-title">Kết quả bài thi</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="examAttemptsTab" role="tablist">
+                        @foreach (var attemptGroup in Model.ExamAttempts)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(attemptGroup.AttemptCount == 1 ? "active" : "")"
+                                   id="attempt-@attemptGroup.AttemptCount-tab"
+                                   data-bs-toggle="tab"
+                                   href="#attempt-@attemptGroup.AttemptCount">
+                                    Lần thi @attemptGroup.AttemptCount
+                                </a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="tab-content">
+                        @foreach (var attemptGroup in Model.ExamAttempts)
+                        {
+                            <div class="tab-pane fade @(attemptGroup.AttemptCount == 1 ? "show active" : "")"
+                                 id="attempt-@attemptGroup.AttemptCount">
+                                <a href="javascript:void(0)"
+                                   class="btn btn-warning mb-2 mt-2 f-right btn-export-excel"
+                                   data-attempt-count="@attemptGroup.AttemptCount"
+                                   data-exam-id="@Model.Exam.IDEXAM"
+                                   data-exam-name="@Model.Exam.NAMEEXAM">
+                                    <i class="fa fa-file-excel"></i> Xuất Excel
+                                </a>
+                                @*<a href="javascript:void(0)"
+                                   class="btn btn-primary mb-2 mt-2 f-right btn-export-pdf"
+                                   data-attempt-count="@attemptGroup.AttemptCount"
+                                   data-exam-id="@Model.Exam.IDEXAM"
+                                   data-exam-name="@Model.Exam.NAMEEXAM">
+                                    <i class="fa fa-file-pdf"></i> Xuất PDF
+                                </a>*@
+                                <table id="attempt-@attemptGroup.AttemptCount-table" class="table table-striped table-bordered" style="text-align:center">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã học sinh</th>
+                                            <th>Tên học sinh</th>
+                                            <th>Giới tính</th>
+                                            <th>Ngày sinh</th>
+                                            <th>Điểm</th>
+                                            <th>Trạng thái làm bài</th>
+                                            <th>Xếp loại</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var record in attemptGroup.Records)
+                                        {
+                                            <tr>
+                                                <td>@record.AccountStudent</td>
+                                                <td>@record.StudentName</td>
+                                                <td>@record.Sex</td>
+                                                <th>@record.Birthday.ToString("dd/MM/yyyy")</th>
+                                                <td>@record.TotalScore điểm</td>
+                                                <td class="@(record.IsCompleted ? "text-success" : "text-danger")">
+                                                    @(record.IsCompleted ? "Đã hoàn thành" : "Chưa hoàn thành")
+                                                </td>
+
+                                                @if (record.TotalScore >= 8)
+                                                {
+                                                    <td style="color:forestgreen">Giỏi</td>
+                                                }
+                                                else if (record.TotalScore < 8 && record.TotalScore >= 6)
+                                                {
+                                                    <td style="color:yellow">Khá</td>
+                                                }
+                                                else if (record.TotalScore < 6 && record.TotalScore >= 4)
+                                                {
+                                                    <td style="color:yellow">Trung bình</td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="color:red">Yếu</td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll(".btn-export-excel").forEach(button => {
+        button.addEventListener("click", function (e) {
+            e.preventDefault(); 
+
+            const att = this.getAttribute("data-attempt-count");
+            const examId = this.getAttribute("data-exam-id");
+            const examName = this.getAttribute("data-exam-name"); 
+
+            fetch(`/Exam/ExportExamAttemptToExcel?att=${att}&id=${examId}`, {
+                method: "GET"
+            })
+                .then(response => {
+                    if (response.ok) {
+                        const contentDisposition = response.headers.get("Content-Disposition");
+                        const fileName = `MonThi_${examName}_LanThi_${att}.xlsx`;
+
+                        response.blob().then(blob => {
+                            const link = document.createElement("a");
+                            link.href = URL.createObjectURL(blob);
+                            link.download = fileName; 
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                        });
+                    } else {
+                        alert("Đã xảy ra lỗi khi xuất file Excel.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi:", error);
+                    alert("Đã xảy ra lỗi khi gửi yêu cầu.");
+                });
+        });
+    });
+
+    
+</script>

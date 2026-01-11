@@ -1,0 +1,139 @@
+﻿@model IEnumerable<WebThiTracNghiemOnline.Models.SubjectByTeacherViewModel>
+
+@{
+    ViewBag.Title = "ListSubjectByIdTeacher";
+    Layout = "~/Areas/Admin/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<div class="page-inner">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Danh sách môn học theo giáo viên</h4>
+                        <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#createSubjectModal">
+                            <i class="fa fa-plus"></i>
+                            Thêm mới
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="multi-filter-select" class="table table-striped table-bordered" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Mã môn
+                                    </th>
+                                    <th>
+                                        Tên môn học
+                                    </th>
+                                    <th>
+                                        Ngày tạo
+                                    </th>
+                                    <th>
+                                        Trạng thái
+                                    </th>
+                                    <th>
+                                        Hành động
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Code
+                                        </td>
+                                        <td>
+                                            @item.Name
+                                        </td>
+                                        <td>
+                                            @item.CreateAt.ToString("dd/MM/yyyy")
+                                        </td>
+                                        @if (item.Stt == 1)
+                                        {
+                                            <td style="color:forestgreen">
+                                                Hoạt động
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red">
+                                                Không hoạt động
+                                            </td>
+                                        }
+                                    <td>
+                                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("ListChapters","Chapter", new { id = item.Id })'"><i class="fa fa-plus"></i></button>
+                                        <button type="button" id="xoatintucmodalt" class="btn btn-warning" onclick="confirmDelete('@Url.Action("DeleteSubjectByTeacher", "Chapter", new { id = item.Id })')"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Thêm Mới Môn Học -->
+<div class="modal fade" id="createSubjectModal" tabindex="-1" aria-labelledby="createSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createSubjectModalLabel">Chọn Môn Học</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createSubjectForm" method="post" action="@Url.Action("CreateSubjectForTeacher", "Chapter")">
+                    <div class="form-group">
+                        <label for="subjectDropdown">Chọn môn học:</label>
+                        <select class="form-control" id="subjectDropdown" name="subjectId" required>
+                            <option value="">-- Chọn môn học --</option>
+                            @foreach (var subject in ViewBag.AvailableSubjects)
+                            {
+                                <option value="@subject.ID">@subject.CODE _ @subject.NAMESUBJECT</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Tạo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function confirmDelete(deleteUrl) {
+        if (confirm("Bạn có chắc chắn muốn xóa môn học này?")) {
+            $.ajax({
+                url: deleteUrl,
+                type: "POST",
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    } else {
+                        toastr.error(response.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                },
+                error: function () {
+                    toastr.error("Đã xảy ra lỗi khi xóa học kỳ này.");
+                }
+            });
+        }
+    }
+</script>

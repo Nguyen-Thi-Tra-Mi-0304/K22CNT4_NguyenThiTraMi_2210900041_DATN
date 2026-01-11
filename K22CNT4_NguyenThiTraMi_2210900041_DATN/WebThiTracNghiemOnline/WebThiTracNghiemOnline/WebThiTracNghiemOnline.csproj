@@ -1,0 +1,1491 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{05F2354D-29D3-495F-8317-BA74CA6FBC53}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebThiTracNghiemOnline</RootNamespace>
+    <AssemblyName>WebThiTracNghiemOnline</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44360</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=3.0.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.3.0.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.0.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.Framework.3.0.1\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=7.4.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.7.4.2\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.8.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.8.14\lib\net46\Hangfire.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.8.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.8.14\lib\net451\Hangfire.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.1\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="RBush, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RBush.3.2.0\lib\netstandard1.2\RBush.dll</HintPath>
+    </Reference>
+    <Reference Include="System.AppContext, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net463\System.AppContext.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.Tracing.4.3.0\lib\net462\System.Diagnostics.Tracing.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.8.0.0\lib\net462\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Expressions.4.3.0\lib\net463\System.Linq.Expressions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.RegularExpressions.4.3.0\lib\net463\System.Text.RegularExpressions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.3.0\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.3.0\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\DatabaseTTN.mdf" />
+    <Content Include="App_Data\DatabaseTTN_log.ldf">
+      <DependentUpon>DatabaseTTN.mdf</DependentUpon>
+    </Content>
+    <Content Include="Areas\Admin\Data\css\bootstrap.min.css" />
+    <Content Include="Areas\Admin\Data\css\demo.css" />
+    <Content Include="Areas\Admin\Data\css\fonts.css" />
+    <Content Include="Areas\Admin\Data\css\fonts.min.css" />
+    <Content Include="Areas\Admin\Data\css\kaiadmin.css" />
+    <Content Include="Areas\Admin\Data\css\kaiadmin.min.css" />
+    <Content Include="Areas\Admin\Data\css\plugins.css" />
+    <Content Include="Areas\Admin\Data\css\plugins.min.css" />
+    <Content Include="Areas\Admin\Data\DataLogin\css\bootstrap.min.css" />
+    <Content Include="Areas\Admin\Data\DataLogin\css\bootstrap\bootstrap.css" />
+    <Content Include="Areas\Admin\Data\DataLogin\css\owl.carousel.min.css" />
+    <Content Include="Areas\Admin\Data\DataLogin\css\style.css" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\demo-files\demo.css" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\demo-files\demo.js" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\demo.html" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\fonts\icomoon.svg" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\Read Me.txt" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\style.css" />
+    <Content Include="Areas\Admin\Data\DataLogin\images\bg_1.jpg" />
+    <Content Include="Areas\Admin\Data\DataLogin\images\imgtruong.jpg" />
+    <Content Include="Areas\Admin\Data\DataLogin\js\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Data\DataLogin\js\jquery-3.3.1.min.js" />
+    <Content Include="Areas\Admin\Data\DataLogin\js\main.js" />
+    <Content Include="Areas\Admin\Data\DataLogin\js\owl.carousel.min.js" />
+    <Content Include="Areas\Admin\Data\DataLogin\js\popper.min.js" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-brands-400.svg" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-regular-400.svg" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-solid-900.svg" />
+    <Content Include="Areas\Admin\Data\fonts\simple-line-icons\Simple-Line-Icons.svg" />
+    <Content Include="Areas\Admin\Data\img\arashmil.jpg" />
+    <Content Include="Areas\Admin\Data\img\bg-404.jpeg" />
+    <Content Include="Areas\Admin\Data\img\blogpost.jpg" />
+    <Content Include="Areas\Admin\Data\img\chadengle.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example1-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example1.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example10-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example10.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example11-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example11.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example12-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example12.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example2-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example2.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example3-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example3.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example4-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example4.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example5-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example5.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example6-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example6.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example7-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example7.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example8-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example8.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\example9-300x300.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\example9.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\logo.svg" />
+    <Content Include="Areas\Admin\Data\img\examples\logo1.svg" />
+    <Content Include="Areas\Admin\Data\img\examples\logo2.svg" />
+    <Content Include="Areas\Admin\Data\img\examples\logoinvoice.svg" />
+    <Content Include="Areas\Admin\Data\img\examples\product1.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\product10.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\product11.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\product12.jpeg" />
+    <Content Include="Areas\Admin\Data\img\examples\product2.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\product3.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\product4.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\product5.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\product6.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\product7.jpg" />
+    <Content Include="Areas\Admin\Data\img\examples\product8.jpg" />
+    <Content Include="Areas\Admin\Data\img\flags\ad.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ae.png" />
+    <Content Include="Areas\Admin\Data\img\flags\af.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ag.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ai.png" />
+    <Content Include="Areas\Admin\Data\img\flags\al.png" />
+    <Content Include="Areas\Admin\Data\img\flags\am.png" />
+    <Content Include="Areas\Admin\Data\img\flags\an.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ao.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ar.png" />
+    <Content Include="Areas\Admin\Data\img\flags\as.png" />
+    <Content Include="Areas\Admin\Data\img\flags\at.png" />
+    <Content Include="Areas\Admin\Data\img\flags\au.png" />
+    <Content Include="Areas\Admin\Data\img\flags\aw.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ax.png" />
+    <Content Include="Areas\Admin\Data\img\flags\az.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ba.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bb.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bd.png" />
+    <Content Include="Areas\Admin\Data\img\flags\be.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bf.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bh.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bi.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bj.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bo.png" />
+    <Content Include="Areas\Admin\Data\img\flags\br.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bs.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bt.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bv.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bw.png" />
+    <Content Include="Areas\Admin\Data\img\flags\by.png" />
+    <Content Include="Areas\Admin\Data\img\flags\bz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ca.png" />
+    <Content Include="Areas\Admin\Data\img\flags\catalonia.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cc.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cd.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cf.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ch.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ci.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ck.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cl.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\co.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cs.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cu.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cv.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cx.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cy.png" />
+    <Content Include="Areas\Admin\Data\img\flags\cz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\de.png" />
+    <Content Include="Areas\Admin\Data\img\flags\dj.png" />
+    <Content Include="Areas\Admin\Data\img\flags\dk.png" />
+    <Content Include="Areas\Admin\Data\img\flags\dm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\do.png" />
+    <Content Include="Areas\Admin\Data\img\flags\dz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ec.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ee.png" />
+    <Content Include="Areas\Admin\Data\img\flags\eg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\eh.png" />
+    <Content Include="Areas\Admin\Data\img\flags\england.png" />
+    <Content Include="Areas\Admin\Data\img\flags\er.png" />
+    <Content Include="Areas\Admin\Data\img\flags\es.png" />
+    <Content Include="Areas\Admin\Data\img\flags\et.png" />
+    <Content Include="Areas\Admin\Data\img\flags\europeanunion.png" />
+    <Content Include="Areas\Admin\Data\img\flags\fam.png" />
+    <Content Include="Areas\Admin\Data\img\flags\fi.png" />
+    <Content Include="Areas\Admin\Data\img\flags\fj.png" />
+    <Content Include="Areas\Admin\Data\img\flags\fk.png" />
+    <Content Include="Areas\Admin\Data\img\flags\fm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\fo.png" />
+    <Content Include="Areas\Admin\Data\img\flags\fr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ga.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gb.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gd.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ge.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gf.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gh.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gi.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gl.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gp.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gq.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gs.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gt.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gu.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gw.png" />
+    <Content Include="Areas\Admin\Data\img\flags\gy.png" />
+    <Content Include="Areas\Admin\Data\img\flags\hk.png" />
+    <Content Include="Areas\Admin\Data\img\flags\hm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\hn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\hr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ht.png" />
+    <Content Include="Areas\Admin\Data\img\flags\hu.png" />
+    <Content Include="Areas\Admin\Data\img\flags\id.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ie.png" />
+    <Content Include="Areas\Admin\Data\img\flags\il.png" />
+    <Content Include="Areas\Admin\Data\img\flags\in.png" />
+    <Content Include="Areas\Admin\Data\img\flags\io.png" />
+    <Content Include="Areas\Admin\Data\img\flags\iq.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ir.png" />
+    <Content Include="Areas\Admin\Data\img\flags\is.png" />
+    <Content Include="Areas\Admin\Data\img\flags\it.png" />
+    <Content Include="Areas\Admin\Data\img\flags\jm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\jo.png" />
+    <Content Include="Areas\Admin\Data\img\flags\jp.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ke.png" />
+    <Content Include="Areas\Admin\Data\img\flags\kg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\kh.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ki.png" />
+    <Content Include="Areas\Admin\Data\img\flags\km.png" />
+    <Content Include="Areas\Admin\Data\img\flags\kn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\kp.png" />
+    <Content Include="Areas\Admin\Data\img\flags\kr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\kw.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ky.png" />
+    <Content Include="Areas\Admin\Data\img\flags\kz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\la.png" />
+    <Content Include="Areas\Admin\Data\img\flags\lb.png" />
+    <Content Include="Areas\Admin\Data\img\flags\lc.png" />
+    <Content Include="Areas\Admin\Data\img\flags\li.png" />
+    <Content Include="Areas\Admin\Data\img\flags\lk.png" />
+    <Content Include="Areas\Admin\Data\img\flags\lr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ls.png" />
+    <Content Include="Areas\Admin\Data\img\flags\lt.png" />
+    <Content Include="Areas\Admin\Data\img\flags\lu.png" />
+    <Content Include="Areas\Admin\Data\img\flags\lv.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ly.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ma.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mc.png" />
+    <Content Include="Areas\Admin\Data\img\flags\md.png" />
+    <Content Include="Areas\Admin\Data\img\flags\me.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mh.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mk.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ml.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mo.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mp.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mq.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ms.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mt.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mu.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mv.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mw.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mx.png" />
+    <Content Include="Areas\Admin\Data\img\flags\my.png" />
+    <Content Include="Areas\Admin\Data\img\flags\mz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\na.png" />
+    <Content Include="Areas\Admin\Data\img\flags\nc.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ne.png" />
+    <Content Include="Areas\Admin\Data\img\flags\nf.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ng.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ni.png" />
+    <Content Include="Areas\Admin\Data\img\flags\nl.png" />
+    <Content Include="Areas\Admin\Data\img\flags\no.png" />
+    <Content Include="Areas\Admin\Data\img\flags\np.png" />
+    <Content Include="Areas\Admin\Data\img\flags\nr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\nu.png" />
+    <Content Include="Areas\Admin\Data\img\flags\nz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\om.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pa.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pe.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pf.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ph.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pk.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pl.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ps.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pt.png" />
+    <Content Include="Areas\Admin\Data\img\flags\pw.png" />
+    <Content Include="Areas\Admin\Data\img\flags\py.png" />
+    <Content Include="Areas\Admin\Data\img\flags\qa.png" />
+    <Content Include="Areas\Admin\Data\img\flags\re.png" />
+    <Content Include="Areas\Admin\Data\img\flags\readme.txt" />
+    <Content Include="Areas\Admin\Data\img\flags\ro.png" />
+    <Content Include="Areas\Admin\Data\img\flags\rs.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ru.png" />
+    <Content Include="Areas\Admin\Data\img\flags\rw.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sa.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sb.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sc.png" />
+    <Content Include="Areas\Admin\Data\img\flags\scotland.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sd.png" />
+    <Content Include="Areas\Admin\Data\img\flags\se.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sh.png" />
+    <Content Include="Areas\Admin\Data\img\flags\si.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sj.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sk.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sl.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\so.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\st.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sv.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sy.png" />
+    <Content Include="Areas\Admin\Data\img\flags\sz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tc.png" />
+    <Content Include="Areas\Admin\Data\img\flags\td.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tf.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\th.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tj.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tk.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tl.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\to.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tr.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tt.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tv.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tw.png" />
+    <Content Include="Areas\Admin\Data\img\flags\tz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ua.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ug.png" />
+    <Content Include="Areas\Admin\Data\img\flags\um.png" />
+    <Content Include="Areas\Admin\Data\img\flags\us.png" />
+    <Content Include="Areas\Admin\Data\img\flags\uy.png" />
+    <Content Include="Areas\Admin\Data\img\flags\uz.png" />
+    <Content Include="Areas\Admin\Data\img\flags\va.png" />
+    <Content Include="Areas\Admin\Data\img\flags\vc.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ve.png" />
+    <Content Include="Areas\Admin\Data\img\flags\vg.png" />
+    <Content Include="Areas\Admin\Data\img\flags\vi.png" />
+    <Content Include="Areas\Admin\Data\img\flags\vn.png" />
+    <Content Include="Areas\Admin\Data\img\flags\vu.png" />
+    <Content Include="Areas\Admin\Data\img\flags\wales.png" />
+    <Content Include="Areas\Admin\Data\img\flags\wf.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ws.png" />
+    <Content Include="Areas\Admin\Data\img\flags\ye.png" />
+    <Content Include="Areas\Admin\Data\img\flags\yt.png" />
+    <Content Include="Areas\Admin\Data\img\flags\za.png" />
+    <Content Include="Areas\Admin\Data\img\flags\zm.png" />
+    <Content Include="Areas\Admin\Data\img\flags\zw.png" />
+    <Content Include="Areas\Admin\Data\img\img-shadow.png" />
+    <Content Include="Areas\Admin\Data\img\jm_denis.jpg" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo1.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo2.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo3.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo4.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo5.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo6.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo7.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo8.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\demo9.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\favicon.ico" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\favicon.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\favicon.svg" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\icon.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\icon.svg" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\logo_dark.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\logo_dark.svg" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\logo_documentation.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\logo_light.png" />
+    <Content Include="Areas\Admin\Data\img\kaiadmin\logo_light.svg" />
+    <Content Include="Areas\Admin\Data\img\logoproduct.svg" />
+    <Content Include="Areas\Admin\Data\img\logoproduct2.svg" />
+    <Content Include="Areas\Admin\Data\img\logoproduct3.svg" />
+    <Content Include="Areas\Admin\Data\img\mlane.jpg" />
+    <Content Include="Areas\Admin\Data\img\profile.jpg" />
+    <Content Include="Areas\Admin\Data\img\profile2.jpg" />
+    <Content Include="Areas\Admin\Data\img\sauro.jpg" />
+    <Content Include="Areas\Admin\Data\img\talha.jpg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_blank_canvas_3rbb.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_creative_team_r90h.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_empty_xct9.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_Hello_qnas.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_not_found_60pq.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_no_data_qbuo.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_page_not_found_su7k.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_sign_in_e6hj.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_tabs_jf82.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_Taken_if77.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_update_uxn2.svg" />
+    <Content Include="Areas\Admin\Data\img\undraw\undraw_upgrade_06a0.svg" />
+    <Content Include="Areas\Admin\Data\img\visa.svg" />
+    <Content Include="Areas\Admin\Data\js\core\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Data\js\core\jquery-3.7.1.min.js" />
+    <Content Include="Areas\Admin\Data\js\core\popper.min.js" />
+    <Content Include="Areas\Admin\Data\js\demo.js" />
+    <Content Include="Areas\Admin\Data\js\kaiadmin.js" />
+    <Content Include="Areas\Admin\Data\js\kaiadmin.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\bootstrap-notify\bootstrap-notify.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\bootstrap-tagsinput\bootstrap-tagsinput.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\bootstrap-toggle\bootstrap-toggle.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\chart-circle\circles.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\chart.js\chart.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\datatables\datatables.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\datepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\dropzone\dropzone.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\gmaps\gmaps.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\jquery-scrollbar\jquery.scrollbar.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\jquery.magnific-popup\jquery.magnific-popup.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\jquery.sparkline\jquery.sparkline.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\jquery.validate\jquery.validate.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\jsvectormap\jsvectormap.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\jsvectormap\world.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\list.js\list.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\moment\moment.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\owl-carousel\ajax-loader.gif" />
+    <Content Include="Areas\Admin\Data\js\plugin\owl-carousel\owl.carousel.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\owl-carousel\owl.video.play.png" />
+    <Content Include="Areas\Admin\Data\js\plugin\select2\select2.full.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\sortable\sortable.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\sticky-sidebar\sticky-sidebar.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\summernote\summernote-lite.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\sweetalert\sweetalert.min.js" />
+    <Content Include="Areas\Admin\Data\js\plugin\webfont\webfont.min.js" />
+    <Content Include="Areas\Admin\Data\js\setting-demo.js" />
+    <Content Include="Areas\Admin\Data\js\setting-demo2.js" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\fullcalendar.min.css" />
+    <Content Include="Content\fullcalendar.print.css" />
+    <Content Include="Content\fullcalendar.print.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Admin\Views\Industry\CreateIndustry.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\EditIndustry.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\CreateCourse.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\EditCourse.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\CreateSemester.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\EditSemester.cshtml" />
+    <Content Include="Areas\Admin\Views\Privilege\ListPrivilege.cshtml" />
+    <Content Include="Areas\Admin\Views\Privilege\CreatePrivilege.cshtml" />
+    <Content Include="Areas\Admin\Views\Privilege\EditPrivilege.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountUser\CreateStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\ListSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\EditSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\Chapter\ListSubjectByIdTeacher.cshtml" />
+    <Content Include="Areas\Admin\Views\Chapter\ListChapters.cshtml" />
+    <Content Include="Areas\Admin\Views\Chapter\CreateChapter.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassToTeacher\ListClassToTeacher.cshtml" />
+    <Content Include="Areas\Admin\Views\Exam\EditExam.cshtml" />
+    <Content Include="Areas\Admin\Views\HomePage\ChangePassword.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountUser\EditStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountUser\DetailsStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\ClassToTeacher\DetailsStudentOnTeacher.cshtml" />
+    <Content Include="Areas\Admin\Views\Class\EditClass.cshtml" />
+    <None Include="Scripts\jquery-2.0.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.0.js" />
+    <Content Include="Scripts\jquery-2.0.0.min.js" />
+    <Content Include="Scripts\jquery-2.0.0.min.map" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Theme\css\animate.min.css" />
+    <Content Include="Theme\css\animated-headline.css" />
+    <Content Include="Theme\css\bootstrap.min.css" />
+    <Content Include="Theme\css\flaticon.css" />
+    <Content Include="Theme\css\fontawesome-all.min.css" />
+    <Content Include="Theme\css\gijgo.css" />
+    <Content Include="Theme\css\hamburgers.min.css" />
+    <Content Include="Theme\css\magnific-popup.css" />
+    <Content Include="Theme\css\main.css" />
+    <Content Include="Theme\css\nice-select.css" />
+    <Content Include="Theme\css\owl.carousel.min.css" />
+    <Content Include="Theme\css\price_rangs.css" />
+    <Content Include="Theme\css\progressbar_barfiller.css" />
+    <Content Include="Theme\css\responsive.css" />
+    <Content Include="Theme\css\slick.css" />
+    <Content Include="Theme\css\slicknav.css" />
+    <Content Include="Theme\css\style.css" />
+    <Content Include="Theme\css\themify-icons.css" />
+    <Content Include="Theme\fonts\fa-brands-400.svg" />
+    <Content Include="Theme\fonts\fa-regular-400.svg" />
+    <Content Include="Theme\fonts\fa-solid-900.svg" />
+    <Content Include="Theme\fonts\flaticon.css" />
+    <Content Include="Theme\fonts\flaticon.html" />
+    <Content Include="Theme\fonts\Flaticon.svg" />
+    <Content Include="Theme\fonts\gijgo-material.svg" />
+    <Content Include="Theme\fonts\themify.svg" />
+    <Content Include="Theme\img\background_login.jpg" />
+    <Content Include="Theme\img\blog\author.png" />
+    <Content Include="Theme\img\blog\comment_1.png" />
+    <Content Include="Theme\img\blog\comment_2.png" />
+    <Content Include="Theme\img\blog\comment_3.png" />
+    <Content Include="Theme\img\blog\learn_about_bg.png" />
+    <Content Include="Theme\img\blog\single_blog_1.png" />
+    <Content Include="Theme\img\blog\single_blog_2.png" />
+    <Content Include="Theme\img\blog\single_blog_3.png" />
+    <Content Include="Theme\img\blog\single_blog_4.png" />
+    <Content Include="Theme\img\blog\single_blog_5.png" />
+    <Content Include="Theme\img\blog\slide_thumb_1.png" />
+    <Content Include="Theme\img\elements\a.jpg" />
+    <Content Include="Theme\img\elements\a2.jpg" />
+    <Content Include="Theme\img\elements\d.jpg" />
+    <Content Include="Theme\img\elements\disabled-check.png" />
+    <Content Include="Theme\img\elements\disabled-radio.png" />
+    <Content Include="Theme\img\elements\f1.jpg" />
+    <Content Include="Theme\img\elements\f2.jpg" />
+    <Content Include="Theme\img\elements\f3.jpg" />
+    <Content Include="Theme\img\elements\f4.jpg" />
+    <Content Include="Theme\img\elements\f5.jpg" />
+    <Content Include="Theme\img\elements\f6.jpg" />
+    <Content Include="Theme\img\elements\f7.jpg" />
+    <Content Include="Theme\img\elements\f8.jpg" />
+    <Content Include="Theme\img\elements\g1.jpg" />
+    <Content Include="Theme\img\elements\g2.jpg" />
+    <Content Include="Theme\img\elements\g3.jpg" />
+    <Content Include="Theme\img\elements\g4.jpg" />
+    <Content Include="Theme\img\elements\g5.jpg" />
+    <Content Include="Theme\img\elements\g6.jpg" />
+    <Content Include="Theme\img\elements\g7.jpg" />
+    <Content Include="Theme\img\elements\g8.jpg" />
+    <Content Include="Theme\img\elements\primary-check.png" />
+    <Content Include="Theme\img\elements\primary-radio.png" />
+    <Content Include="Theme\img\elements\success-check.png" />
+    <Content Include="Theme\img\elements\success-radio.png" />
+    <Content Include="Theme\img\favicon.ico" />
+    <Content Include="Theme\img\gallery\about2.png" />
+    <Content Include="Theme\img\gallery\about3.png" />
+    <Content Include="Theme\img\gallery\featured1.png" />
+    <Content Include="Theme\img\gallery\featured2.png" />
+    <Content Include="Theme\img\gallery\featured3.png" />
+    <Content Include="Theme\img\gallery\featured4.png" />
+    <Content Include="Theme\img\gallery\featured5.png" />
+    <Content Include="Theme\img\gallery\featured6.png" />
+    <Content Include="Theme\img\gallery\footer-bg.png" />
+    <Content Include="Theme\img\gallery\footer_bg.png" />
+    <Content Include="Theme\img\gallery\form.png" />
+    <Content Include="Theme\img\gallery\h1_hero2.png" />
+    <Content Include="Theme\img\gallery\heart1.png" />
+    <Content Include="Theme\img\gallery\logo2_footer.png" />
+    <Content Include="Theme\img\gallery\qutaion.png" />
+    <Content Include="Theme\img\gallery\screen.png" />
+    <Content Include="Theme\img\gallery\section-bg3.png" />
+    <Content Include="Theme\img\gallery\section_bg01.png" />
+    <Content Include="Theme\img\gallery\section_bg02.png" />
+    <Content Include="Theme\img\gallery\tam4.png" />
+    <Content Include="Theme\img\gallery\team1.png" />
+    <Content Include="Theme\img\gallery\team2.png" />
+    <Content Include="Theme\img\gallery\team3.png" />
+    <Content Include="Theme\img\gallery\team4.png" />
+    <Content Include="Theme\img\gallery\testimonail.png" />
+    <Content Include="Theme\img\gallery\testimonial.png" />
+    <Content Include="Theme\img\gallery\topic1.png" />
+    <Content Include="Theme\img\gallery\topic2.png" />
+    <Content Include="Theme\img\gallery\topic3.png" />
+    <Content Include="Theme\img\gallery\topic4.png" />
+    <Content Include="Theme\img\gallery\topic5.png" />
+    <Content Include="Theme\img\gallery\topic6.png" />
+    <Content Include="Theme\img\gallery\topic7.png" />
+    <Content Include="Theme\img\gallery\topic8.png" />
+    <Content Include="Theme\img\gallery\video-bg.svg" />
+    <Content Include="Theme\img\hero\h1_hero.png" />
+    <Content Include="Theme\img\hero\hero2.png" />
+    <Content Include="Theme\img\hero\screen.png" />
+    <Content Include="Theme\img\icon\about.svg" />
+    <Content Include="Theme\img\icon\flag.png" />
+    <Content Include="Theme\img\icon\flagred.png" />
+    <Content Include="Theme\img\icon\home-button.png" />
+    <Content Include="Theme\img\icon\icon1.svg" />
+    <Content Include="Theme\img\icon\icon2.svg" />
+    <Content Include="Theme\img\icon\icon3.svg" />
+    <Content Include="Theme\img\icon\right-icon.svg" />
+    <Content Include="Theme\img\Info\boy1.jpg" />
+    <Content Include="Theme\img\Info\img_user.png" />
+    <Content Include="Theme\img\logo\loder.png" />
+    <Content Include="Theme\img\logo\loder.svg" />
+    <Content Include="Theme\img\logo\logomain.png" />
+    <Content Include="Theme\img\logo\logoschool.png" />
+    <Content Include="Theme\img\logo\LogoTCNCC.png" />
+    <Content Include="Theme\img\templateExam\exam1.jpeg" />
+    <Content Include="Theme\img\templateExam\exam2.jpg" />
+    <Content Include="Theme\img\templateExam\exam3.jpeg" />
+    <Content Include="Theme\img\templateExam\exam4.jpg" />
+    <Content Include="Theme\img\templateExam\exam5.jpeg" />
+    <Content Include="Theme\js\animated.headline.js" />
+    <Content Include="Theme\js\bootstrap.min.js" />
+    <Content Include="Theme\js\contact.js" />
+    <Content Include="Theme\js\gijgo.min.js" />
+    <Content Include="Theme\js\hover-direction-snake.min.js" />
+    <Content Include="Theme\js\jquery.ajaxchimp.min.js" />
+    <Content Include="Theme\js\jquery.barfiller.js" />
+    <Content Include="Theme\js\jquery.countdown.min.js" />
+    <Content Include="Theme\js\jquery.counterup.min.js" />
+    <Content Include="Theme\js\jquery.form.js" />
+    <Content Include="Theme\js\jquery.magnific-popup.js" />
+    <Content Include="Theme\js\jquery.nice-select.min.js" />
+    <Content Include="Theme\js\jquery.paroller.min.js" />
+    <Content Include="Theme\js\jquery.slicknav.min.js" />
+    <Content Include="Theme\js\jquery.sticky.js" />
+    <Content Include="Theme\js\jquery.validate.min.js" />
+    <Content Include="Theme\js\jquery.vide.js" />
+    <Content Include="Theme\js\mail-script.js" />
+    <Content Include="Theme\js\main.js" />
+    <Content Include="Theme\js\one-page-nav-min.js" />
+    <Content Include="Theme\js\owl.carousel.min.js" />
+    <Content Include="Theme\js\plugins.js" />
+    <Content Include="Theme\js\popper.min.js" />
+    <Content Include="Theme\js\price-range.js" />
+    <Content Include="Theme\js\slick.min.js" />
+    <Content Include="Theme\js\vendor\jquery-1.12.4.min.js" />
+    <Content Include="Theme\js\vendor\modernizr-3.5.0.min.js" />
+    <Content Include="Theme\js\waypoints.min.js" />
+    <Content Include="Theme\js\wow.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountUserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ChapterController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ClassController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ClassToTeacherController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ExamController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomePageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\IndustryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PrivilegeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuestionsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SubjectController.cs" />
+    <Compile Include="Areas\Admin\Data\ActionFilterAttribute.cs" />
+    <Compile Include="Context\WebsiteTracNghiemDBContext.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ViewExamController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409060614090_AddTableIndustry.cs" />
+    <Compile Include="Migrations\202409060614090_AddTableIndustry.Designer.cs">
+      <DependentUpon>202409060614090_AddTableIndustry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409060625307_addtableAccountUser.cs" />
+    <Compile Include="Migrations\202409060625307_addtableAccountUser.Designer.cs">
+      <DependentUpon>202409060625307_addtableAccountUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409060647309_addTableCourseAndSemester.cs" />
+    <Compile Include="Migrations\202409060647309_addTableCourseAndSemester.Designer.cs">
+      <DependentUpon>202409060647309_addTableCourseAndSemester.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409060705241_addTableAccountStudents.cs" />
+    <Compile Include="Migrations\202409060705241_addTableAccountStudents.Designer.cs">
+      <DependentUpon>202409060705241_addTableAccountStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409060904305_addTableSubjectAndChapter.cs" />
+    <Compile Include="Migrations\202409060904305_addTableSubjectAndChapter.Designer.cs">
+      <DependentUpon>202409060904305_addTableSubjectAndChapter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409060910537_EditChapter.cs" />
+    <Compile Include="Migrations\202409060910537_EditChapter.Designer.cs">
+      <DependentUpon>202409060910537_EditChapter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409060941066_addTableCLass.cs" />
+    <Compile Include="Migrations\202409060941066_addTableCLass.Designer.cs">
+      <DependentUpon>202409060941066_addTableCLass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409070631446_addTableQuestionAndAnswers.cs" />
+    <Compile Include="Migrations\202409070631446_addTableQuestionAndAnswers.Designer.cs">
+      <DependentUpon>202409070631446_addTableQuestionAndAnswers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409070636186_addCollumOnTableQuestions.cs" />
+    <Compile Include="Migrations\202409070636186_addCollumOnTableQuestions.Designer.cs">
+      <DependentUpon>202409070636186_addCollumOnTableQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409200420053_addTableExam.cs" />
+    <Compile Include="Migrations\202409200420053_addTableExam.Designer.cs">
+      <DependentUpon>202409200420053_addTableExam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409210335090_EditTableExam.cs" />
+    <Compile Include="Migrations\202409210335090_EditTableExam.Designer.cs">
+      <DependentUpon>202409210335090_EditTableExam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409210358513_EditCollumToTableExam.cs" />
+    <Compile Include="Migrations\202409210358513_EditCollumToTableExam.Designer.cs">
+      <DependentUpon>202409210358513_EditCollumToTableExam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410050357363_AddCollumToTableAccountStudent.cs" />
+    <Compile Include="Migrations\202410050357363_AddCollumToTableAccountStudent.Designer.cs">
+      <DependentUpon>202410050357363_AddCollumToTableAccountStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410160410118_addTableTempAnswers.cs" />
+    <Compile Include="Migrations\202410160410118_addTableTempAnswers.Designer.cs">
+      <DependentUpon>202410160410118_addTableTempAnswers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410211216512_AddCollumAnswersText.cs" />
+    <Compile Include="Migrations\202410211216512_AddCollumAnswersText.Designer.cs">
+      <DependentUpon>202410211216512_AddCollumAnswersText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410240910226_CreateTableExamRecords.cs" />
+    <Compile Include="Migrations\202410240910226_CreateTableExamRecords.Designer.cs">
+      <DependentUpon>202410240910226_CreateTableExamRecords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410241059003_AddCollumToTempAnswers.cs" />
+    <Compile Include="Migrations\202410241059003_AddCollumToTempAnswers.Designer.cs">
+      <DependentUpon>202410241059003_AddCollumToTempAnswers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410281007121_EditCollumExamRecords.cs" />
+    <Compile Include="Migrations\202410281007121_EditCollumExamRecords.Designer.cs">
+      <DependentUpon>202410281007121_EditCollumExamRecords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410281151534_AddCollumToExamRecords.cs" />
+    <Compile Include="Migrations\202410281151534_AddCollumToExamRecords.Designer.cs">
+      <DependentUpon>202410281151534_AddCollumToExamRecords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410310534508_AddCollumToTableAccountStudent1.cs" />
+    <Compile Include="Migrations\202410310534508_AddCollumToTableAccountStudent1.Designer.cs">
+      <DependentUpon>202410310534508_AddCollumToTableAccountStudent1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410311312574_updateCollumTokenxpiry.cs" />
+    <Compile Include="Migrations\202410311312574_updateCollumTokenxpiry.Designer.cs">
+      <DependentUpon>202410311312574_updateCollumTokenxpiry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411030705412_EditTable_Industry.cs" />
+    <Compile Include="Migrations\202411030705412_EditTable_Industry.Designer.cs">
+      <DependentUpon>202411030705412_EditTable_Industry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411030910253_EditTableSemester.cs" />
+    <Compile Include="Migrations\202411030910253_EditTableSemester.Designer.cs">
+      <DependentUpon>202411030910253_EditTableSemester.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411040248043_CreateTablePrivilege.cs" />
+    <Compile Include="Migrations\202411040248043_CreateTablePrivilege.Designer.cs">
+      <DependentUpon>202411040248043_CreateTablePrivilege.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411060952346_UpdateData.cs" />
+    <Compile Include="Migrations\202411060952346_UpdateData.Designer.cs">
+      <DependentUpon>202411060952346_UpdateData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411060954046_CreateTableSubJect.cs" />
+    <Compile Include="Migrations\202411060954046_CreateTableSubJect.Designer.cs">
+      <DependentUpon>202411060954046_CreateTableSubJect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411100916527_EditTableChapters.cs" />
+    <Compile Include="Migrations\202411100916527_EditTableChapters.Designer.cs">
+      <DependentUpon>202411100916527_EditTableChapters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411101022340_UpdateTableChapterAndSubByTeacher.cs" />
+    <Compile Include="Migrations\202411101022340_UpdateTableChapterAndSubByTeacher.Designer.cs">
+      <DependentUpon>202411101022340_UpdateTableChapterAndSubByTeacher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411101341303_EditTableChapterv2.cs" />
+    <Compile Include="Migrations\202411101341303_EditTableChapterv2.Designer.cs">
+      <DependentUpon>202411101341303_EditTableChapterv2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411101350101_CreateTbChapter.cs" />
+    <Compile Include="Migrations\202411101350101_CreateTbChapter.Designer.cs">
+      <DependentUpon>202411101350101_CreateTbChapter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411121427013_EditCollumTableExamss.cs" />
+    <Compile Include="Migrations\202411121427013_EditCollumTableExamss.Designer.cs">
+      <DependentUpon>202411121427013_EditCollumTableExamss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411200952305_AddCollumToTableAccountStudents.cs" />
+    <Compile Include="Migrations\202411200952305_AddCollumToTableAccountStudents.Designer.cs">
+      <DependentUpon>202411200952305_AddCollumToTableAccountStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411210514316_AddSttToQuestion.cs" />
+    <Compile Include="Migrations\202411210514316_AddSttToQuestion.Designer.cs">
+      <DependentUpon>202411210514316_AddSttToQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411210524429_AddNoEditToTableQuestion.cs" />
+    <Compile Include="Migrations\202411210524429_AddNoEditToTableQuestion.Designer.cs">
+      <DependentUpon>202411210524429_AddNoEditToTableQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountStudents.cs" />
+    <Compile Include="Models\AccountUser.cs" />
+    <Compile Include="Models\Answers.cs" />
+    <Compile Include="Models\AnswerSubmission.cs" />
+    <Compile Include="Models\Chapters.cs" />
+    <Compile Include="Models\Class.cs" />
+    <Compile Include="Models\ClassInfo.cs" />
+    <Compile Include="Models\ClassToStudentViewModel.cs" />
+    <Compile Include="Models\EditExamViewModel.cs" />
+    <Compile Include="Models\EmailService.cs" />
+    <Compile Include="Models\ExamAttemptViewModel.cs" />
+    <Compile Include="Models\ExamDetailsViewModel.cs" />
+    <Compile Include="Models\ExamModel.cs" />
+    <Compile Include="Models\ExamRecords.cs" />
+    <Compile Include="Models\ExamRecordViewModel.cs" />
+    <Compile Include="Models\Privilege.cs" />
+    <Compile Include="Models\QuestionsToExam.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\Industry.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\Semester.cs" />
+    <Compile Include="Models\StudentOnClass.cs" />
+    <Compile Include="Models\StudentViewModel.cs" />
+    <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\SubjectByTeacher.cs" />
+    <Compile Include="Models\SubjectByTeacherViewModel.cs" />
+    <Compile Include="Models\TempAnswers.cs" />
+    <Compile Include="Models\ViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Data\css\demo.css.map" />
+    <Content Include="Areas\Admin\Data\css\kaiadmin.css.map" />
+    <Content Include="Areas\Admin\Data\css\plugins.css.map" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-brands-400.eot" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-brands-400.ttf" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-brands-400.woff" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-brands-400.woff2" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-regular-400.eot" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-regular-400.ttf" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-regular-400.woff" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-regular-400.woff2" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-solid-900.eot" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-solid-900.ttf" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-solid-900.woff" />
+    <Content Include="Areas\Admin\Data\fonts\fontawesome\fa-solid-900.woff2" />
+    <Content Include="Areas\Admin\Data\fonts\simple-line-icons\Simple-Line-Icons.eot" />
+    <Content Include="Areas\Admin\Data\fonts\simple-line-icons\Simple-Line-Icons.ttf" />
+    <Content Include="Areas\Admin\Data\fonts\simple-line-icons\Simple-Line-Icons.woff" />
+    <Content Include="Areas\Admin\Data\fonts\simple-line-icons\Simple-Line-Icons.woff2" />
+    <Content Include="Areas\Admin\Data\fonts\summernote\summernote.eot" />
+    <Content Include="Areas\Admin\Data\fonts\summernote\summernote.ttf" />
+    <Content Include="Areas\Admin\Data\fonts\summernote\summernote.woff" />
+    <Content Include="Areas\Admin\Data\fonts\summernote\summernote.woff2" />
+    <Content Include="Areas\Admin\Views\HomePage\HomePage.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountUser\ListAccoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountUser\CreateTeacher.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountUser\EditTeacher.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountUser\DetailsTeacher.cshtml" />
+    <Content Include="Areas\Admin\Views\Questions\CreateQuestions.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountUser\ListStudent.cshtml" />
+    <Content Include="Areas\Admin\Views\Class\ListClass.cshtml" />
+    <Content Include="Areas\Admin\Views\Class\CreateClass.cshtml" />
+    <Content Include="Areas\Admin\Views\Class\AddStudentOnClass.cshtml" />
+    <Content Include="Areas\Admin\Data\DataLogin\.DS_Store" />
+    <Content Include="Areas\Admin\Data\DataLogin\css\.DS_Store" />
+    <Content Include="Areas\Admin\Data\DataLogin\css\bootstrap.min.css.map" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\.DS_Store" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\fonts\icomoon.eot" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\fonts\icomoon.ttf" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\fonts\icomoon.woff" />
+    <Content Include="Areas\Admin\Data\DataLogin\fonts\icomoon\selection.json" />
+    <Content Include="Areas\Admin\Data\DataLogin\images\.DS_Store" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\.DS_Store" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\bootstrap.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_alert.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_badge.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_caret.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_deprecate.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_float.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_forms.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_grid.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_hover.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_image.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_lists.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_resize.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_size.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_transition.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\mixins\_visibility.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_align.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_background.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_borders.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_display.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_embed.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_flex.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_float.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_overflow.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_position.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_shadows.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_sizing.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_spacing.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_stretched-link.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_text.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\utilities\_visibility.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\vendor\_rfs.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_alert.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_badge.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_breadcrumb.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_button-group.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_buttons.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_card.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_carousel.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_close.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_code.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_custom-forms.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_dropdown.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_forms.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_functions.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_grid.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_images.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_input-group.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_jumbotron.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_list-group.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_media.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_mixins.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_modal.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_nav.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_navbar.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_pagination.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_popover.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_print.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_progress.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_reboot.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_root.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_spinners.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_tables.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_toasts.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_tooltip.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_transitions.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_type.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_utilities.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\bootstrap\_variables.scss" />
+    <Content Include="Areas\Admin\Data\DataLogin\scss\style.scss" />
+    <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Error\AccessDenied.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\ListIndustry.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\ListCourse.cshtml" />
+    <Content Include="Areas\Admin\Views\Industry\ListSemester.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\ListSubjectByIdTeacher.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\CreateSubject.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\GetchapterBySubject.cshtml" />
+    <Content Include="Areas\Admin\Views\Subject\CreateChapterBySubject.cshtml" />
+    <Content Include="Areas\Admin\Views\Exam\CreateExam.cshtml" />
+    <Content Include="Areas\Admin\Views\Exam\ListExam.cshtml" />
+    <Content Include="Areas\Admin\Views\Exam\DetailsExam.cshtml" />
+    <None Include="packages.config" />
+    <Content Include="Theme\css\style.map" />
+    <Content Include="Theme\fonts\fa-brands-400.eot" />
+    <Content Include="Theme\fonts\fa-brands-400.ttf" />
+    <Content Include="Theme\fonts\fa-brands-400.woff" />
+    <Content Include="Theme\fonts\fa-brands-400.woff2" />
+    <Content Include="Theme\fonts\fa-regular-400.eot" />
+    <Content Include="Theme\fonts\fa-regular-400.ttf" />
+    <Content Include="Theme\fonts\fa-regular-400.woff" />
+    <Content Include="Theme\fonts\fa-regular-400.woff2" />
+    <Content Include="Theme\fonts\fa-solid-900.eot" />
+    <Content Include="Theme\fonts\fa-solid-900.ttf" />
+    <Content Include="Theme\fonts\fa-solid-900.woff" />
+    <Content Include="Theme\fonts\fa-solid-900.woff2" />
+    <Content Include="Theme\fonts\Flaticon.eot" />
+    <Content Include="Theme\fonts\Flaticon.ttf" />
+    <Content Include="Theme\fonts\Flaticon.woff" />
+    <Content Include="Theme\fonts\Flaticon.woff2" />
+    <Content Include="Theme\fonts\gijgo-material.eot" />
+    <Content Include="Theme\fonts\gijgo-material.ttf" />
+    <Content Include="Theme\fonts\gijgo-material.woff" />
+    <Content Include="Theme\fonts\themify.eot" />
+    <Content Include="Theme\fonts\themify.ttf" />
+    <Content Include="Theme\fonts\themify.woff" />
+    <Content Include="Theme\fonts\_flaticon.scss" />
+    <Content Include="Theme\scss\style.scss" />
+    <Content Include="Theme\scss\_about.scss" />
+    <Content Include="Theme\scss\_blog_page.scss" />
+    <Content Include="Theme\scss\_bradcam.scss" />
+    <Content Include="Theme\scss\_collaps.scss" />
+    <Content Include="Theme\scss\_color.scss" />
+    <Content Include="Theme\scss\_common.scss" />
+    <Content Include="Theme\scss\_contact.scss" />
+    <Content Include="Theme\scss\_contact_form.scss" />
+    <Content Include="Theme\scss\_courses.scss" />
+    <Content Include="Theme\scss\_elements.scss" />
+    <Content Include="Theme\scss\_extend.scss" />
+    <Content Include="Theme\scss\_footer.scss" />
+    <Content Include="Theme\scss\_h1-hero.scss" />
+    <Content Include="Theme\scss\_headerMenu.scss" />
+    <Content Include="Theme\scss\_load-balnceing.scss" />
+    <Content Include="Theme\scss\_login.scss" />
+    <Content Include="Theme\scss\_mixins.scss" />
+    <Content Include="Theme\scss\_overlay.scss" />
+    <Content Include="Theme\scss\_services.scss" />
+    <Content Include="Theme\scss\_services_section.scss" />
+    <Content Include="Theme\scss\_team.scss" />
+    <Content Include="Theme\scss\_testimonial.scss" />
+    <Content Include="Theme\scss\_top-sub.scss" />
+    <Content Include="Theme\scss\_variables.scss" />
+    <Content Include="Theme\scss\_wantTowork.scss" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Views\Login\LoginUser.cshtml" />
+    <Content Include="Views\Home\ViewIndex.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Shared\_LayoutMain.cshtml" />
+    <Content Include="Views\ViewExam\ViewListExam.cshtml" />
+    <Content Include="Views\Shared\_LayoutNoBanner.cshtml" />
+    <Content Include="Views\ViewExam\PreExam.cshtml" />
+    <Content Include="Views\ViewExam\StartExam.cshtml" />
+    <Content Include="Views\ViewExam\ShowResult.cshtml" />
+    <Content Include="Views\Login\Forgot_Password.cshtml" />
+    <Content Include="Views\Information\ExamComplete.cshtml" />
+    <Content Include="Views\ViewExam\DetailsExam.cshtml" />
+    <Content Include="Views\Login\Reset_Password.cshtml" />
+    <Content Include="Views\Information\PesionalInfo.cshtml" />
+    <Content Include="Views\Shared\_LayoutExam.cshtml" />
+    <Content Include="Views\Information\Contact.cshtml" />
+    <Content Include="Templates\ForgotPasswordTemplate.html" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\imgadmin\" />
+    <Folder Include="Areas\Admin\Data\img\icon\" />
+    <Folder Include="Migrations\202411121426387_EditCollumTableExam_12\" />
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202409060614090_AddTableIndustry.resx">
+      <DependentUpon>202409060614090_AddTableIndustry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409060625307_addtableAccountUser.resx">
+      <DependentUpon>202409060625307_addtableAccountUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409060647309_addTableCourseAndSemester.resx">
+      <DependentUpon>202409060647309_addTableCourseAndSemester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409060705241_addTableAccountStudents.resx">
+      <DependentUpon>202409060705241_addTableAccountStudents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409060904305_addTableSubjectAndChapter.resx">
+      <DependentUpon>202409060904305_addTableSubjectAndChapter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409060910537_EditChapter.resx">
+      <DependentUpon>202409060910537_EditChapter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409060941066_addTableCLass.resx">
+      <DependentUpon>202409060941066_addTableCLass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409070631446_addTableQuestionAndAnswers.resx">
+      <DependentUpon>202409070631446_addTableQuestionAndAnswers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409070636186_addCollumOnTableQuestions.resx">
+      <DependentUpon>202409070636186_addCollumOnTableQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409200420053_addTableExam.resx">
+      <DependentUpon>202409200420053_addTableExam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409210335090_EditTableExam.resx">
+      <DependentUpon>202409210335090_EditTableExam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409210358513_EditCollumToTableExam.resx">
+      <DependentUpon>202409210358513_EditCollumToTableExam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410050357363_AddCollumToTableAccountStudent.resx">
+      <DependentUpon>202410050357363_AddCollumToTableAccountStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410160410118_addTableTempAnswers.resx">
+      <DependentUpon>202410160410118_addTableTempAnswers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410211216512_AddCollumAnswersText.resx">
+      <DependentUpon>202410211216512_AddCollumAnswersText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410240910226_CreateTableExamRecords.resx">
+      <DependentUpon>202410240910226_CreateTableExamRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410241059003_AddCollumToTempAnswers.resx">
+      <DependentUpon>202410241059003_AddCollumToTempAnswers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410281007121_EditCollumExamRecords.resx">
+      <DependentUpon>202410281007121_EditCollumExamRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410281151534_AddCollumToExamRecords.resx">
+      <DependentUpon>202410281151534_AddCollumToExamRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410310534508_AddCollumToTableAccountStudent1.resx">
+      <DependentUpon>202410310534508_AddCollumToTableAccountStudent1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410311312574_updateCollumTokenxpiry.resx">
+      <DependentUpon>202410311312574_updateCollumTokenxpiry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411030705412_EditTable_Industry.resx">
+      <DependentUpon>202411030705412_EditTable_Industry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411030910253_EditTableSemester.resx">
+      <DependentUpon>202411030910253_EditTableSemester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411040248043_CreateTablePrivilege.resx">
+      <DependentUpon>202411040248043_CreateTablePrivilege.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411060952346_UpdateData.resx">
+      <DependentUpon>202411060952346_UpdateData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411060954046_CreateTableSubJect.resx">
+      <DependentUpon>202411060954046_CreateTableSubJect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411100916527_EditTableChapters.resx">
+      <DependentUpon>202411100916527_EditTableChapters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411101022340_UpdateTableChapterAndSubByTeacher.resx">
+      <DependentUpon>202411101022340_UpdateTableChapterAndSubByTeacher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411101341303_EditTableChapterv2.resx">
+      <DependentUpon>202411101341303_EditTableChapterv2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411101350101_CreateTbChapter.resx">
+      <DependentUpon>202411101350101_CreateTbChapter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411121427013_EditCollumTableExamss.resx">
+      <DependentUpon>202411121427013_EditCollumTableExamss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411200952305_AddCollumToTableAccountStudents.resx">
+      <DependentUpon>202411200952305_AddCollumToTableAccountStudents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411210514316_AddSttToQuestion.resx">
+      <DependentUpon>202411210514316_AddSttToQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411210524429_AddNoEditToTableQuestion.resx">
+      <DependentUpon>202411210524429_AddNoEditToTableQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54968</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44360/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

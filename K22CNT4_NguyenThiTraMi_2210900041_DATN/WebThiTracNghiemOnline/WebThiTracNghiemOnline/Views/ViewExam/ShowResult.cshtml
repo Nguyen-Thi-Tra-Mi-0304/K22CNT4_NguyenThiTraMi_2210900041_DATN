@@ -1,0 +1,39 @@
+﻿@model WebThiTracNghiemOnline.Models.ExamRecords
+@{
+    ViewBag.Title = "ShowResult";
+    Layout = "~/Views/Shared/_LayoutNoBanner.cshtml";
+}
+
+
+<div class="courses-area section-padding40 fix">
+    <div class="container">
+        <div class="properties" style="font-size: 20px; padding-bottom: 15px">
+            <img src="~/Theme/img/icon/home-button.png" alt="" style="width: 25px; height: 25px; margin-bottom: 5px;">
+            <a href="@Url.Action("ViewIndex","Home")">Trang chủ </a> /
+            <a href="@Url.Action("ViewListExam","ViewExam")">Danh sách bài thi của tôi </a>
+        </div>
+        <!-- Single Exam Details -->
+        <div class="properties pb-20">
+            <div class="properties__card">
+                <div class="properties__caption ">
+                    <h2 class="text-primary text-center" style="font-size:35px; margin-bottom:20px;">Kết quả bài thi</h2>
+                    <h3 class="font-weight-bold" style="margin-bottom:10px;">Tên bài thi: @ViewBag.Name</h3>
+                    <h3 class="font-weight-bold" style="margin-bottom:10px;">Trạng thái: Hoàn thành</h3>
+                    <h3 class="font-weight-bold" style="margin-bottom:10px;">Số điểm: @Model.TOTALSCORE điểm</h3>
+
+                    <div class="exam-details" style="font-size:18px; line-height:1.8;">
+                        <p><strong>Thời gian bắt đầu làm: @Model.STARTTIME</strong> </p>
+                        <p><strong>Thời gian kết thúc bài làm: @Model.ENDTIME</strong></p>
+                        <p><strong>Tổng câu hỏi: @ViewBag.CountQuestion</strong></p>
+                        <p><strong>Số câu hỏi đúng: @ViewBag.CorrectCount</strong></p>
+                        <p><strong>Số câu hỏi sai: @ViewBag.IncorrectCount</strong></p>
+                        @if (ViewBag.ShowAnswer == true)
+                        {
+                            <a href="@Url.Action("DetailsExam","ViewExam", new { id = Model.RECORDID})">Xem lại bài thi ...</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

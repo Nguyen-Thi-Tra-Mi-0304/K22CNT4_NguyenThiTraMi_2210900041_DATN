@@ -1,0 +1,615 @@
+﻿@using WebThiTracNghiemOnline.Models.ViewModels
+@model List<QuestionViewModel>
+
+@{
+    ViewBag.Title = "StartExam";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+    var classList = ViewBag.classInfo as List<WebThiTracNghiemOnline.Models.ClassInfo>;
+    int pageSize = 10;
+    int currentPage = ViewBag.CurrentPage ?? 1; // Sử dụng giá trị mặc định là 1 nếu null
+    int startIndex = (currentPage - 1) * pageSize + 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+
+
+}
+
+<style>
+    .quiz-container {
+        box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 100%;
+        padding-bottom: 10px;
+    }
+
+    #question {
+        font-size: 30px;
+        padding: 1rem;
+        text-align: center;
+        margin: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        ul li {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 25px;
+            margin: 1rem 0;
+        }
+
+            ul li label {
+                margin-left: 10px;
+                cursor: pointer;
+            }
+
+    button {
+        background-color: #aa84bb;
+        border: none;
+        color: white;
+        cursor: pointer;
+        display: block;
+        font-family: inherit;
+        font-size: 1.1rem;
+        width: 100%;
+        padding: 1.3rem;
+    }
+
+        button:hover {
+            background-color: #732d91;
+        }
+
+        button:focus {
+            background-color: #5e3370;
+            outline: none;
+        }
+
+    .btn_quiz {
+        text-align: center;
+        padding-top: 20px;
+        width: 56px;
+        height: 60px;
+        border: 1px solid #94b8f0;
+        color: #655757;
+        font-family: "Josefin Sans", sans-serif;
+        border-radius: 5px;
+        text-transform: capitalize;
+        -moz-user-select: none;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin-bottom: 0;
+        position: relative;
+        transition: color 0.4s linear;
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+    }
+
+        .btn_quiz:hover {
+            color: black;
+        }
+
+        .btn_quiz.clicked {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(0, 0, 255, 0.5));
+        }
+
+    .listquizz {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px 5px;
+        justify-content: center;
+    }
+
+        .listquizz > a {
+            margin: 3px 3px;
+            text-decoration: none;
+        }
+
+    .buttonFlag {
+        background-color: white;
+        font-size: 2rem;
+        color: #4255a4;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+    }
+
+        .buttonFlag img {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+        }
+
+        .buttonFlag:hover {
+            background-color: white;
+            color: #4255a4;
+        }
+
+        .buttonFlag:active {
+            background-color: white;
+            color: #4255a4;
+        }
+
+        .buttonFlag:focus {
+            outline: none;
+            background-color: white;
+            color: #4255a4;
+        }
+
+    .answered {
+        background-color: #00FF00;
+    }
+
+    .fixed-sidebar {
+        transition: all 0.3s ease-in-out;
+    }
+
+        .fixed-sidebar.fixed {
+            position: fixed;
+            right: 0;
+            top: 10px;
+            z-index: 1000;
+            width: 25%; /* Điều chỉnh kích thước phù hợp */
+        }
+
+    .pagination1 {
+        display: flex;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+        .pagination1 a {
+            padding: 0 10px;
+            border: solid 1px #007bff;
+            margin: 0 5px;
+            text-decoration: none;
+            color: blue;
+        }
+
+            .pagination1 a.active {
+                background-color: skyblue;
+                font-weight: bold;
+                color: red;
+            }
+
+    .no-select {
+        user-select: none; 
+        -webkit-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+    }
+</style>
+
+<div class="courses-area fix" style="padding-bottom:50px">
+    <div class="container-full">
+        <div class="properties pb-20 pt-20">
+            <div class="properties">
+                <h2 style="font-size:28px; text-transform:uppercase">Bài thi môn : @ViewBag.name &&  Lớp : @ViewBag.ClassInfo.DisplayClass</h2>
+            </div>
+            <div class="properties" style="font-size:20px;padding-bottom:15px">
+                <img src="~/Theme/img/icon/home-button.png" alt="" style="width: 25px; height: 25px; margin-bottom: 5px;">
+                <a href="@Url.Action("ViewIndex","Home")">Trang chủ </a> /
+                <a href="@Url.Action("ViewListExam","ViewExam")">Danh sách bài thi của tôi </a>
+            </div>
+        </div>
+        <div class="row" style="padding:15px">
+            <!-- Phần chính chứa câu hỏi -->
+            <div class="col-xl-9 quiz-container no-select">
+                <!-- ID bài thi, sử dụng trong JavaScript -->
+                <input id="idexam" type="hidden" value="@ViewBag.ExamID" />
+                <input id="countExam" type="hidden" value="@ViewBag.Count" />
+                <!-- Hiển thị câu hỏi -->
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div id="question-container-@(startIndex + i)" class="question-container" style="margin-bottom: 20px;">
+                        <!-- Header câu hỏi với số thứ tự, loại câu hỏi và điểm -->
+                        <div class="question-header" style="display: flex; justify-content: space-between; padding-top: 10px; border-bottom: 1px solid blueviolet;">
+                            <div>
+                                <h2 id="question-number-@(startIndex + i)">Câu hỏi @(startIndex + i)</h2>
+                                @if (@Model[i].QuestionType == 1)
+                                {
+                                    <h2 id="question-type">Loại câu hỏi: Chọn một đáp án</h2>
+                                }
+                                else if (@Model[i].QuestionType == 2)
+                                {
+                                    <h2 id="question-type">Loại câu hỏi: Chọn nhiều đáp án</h2>
+                                }
+                                else
+                                {
+                                    <h2 id="question-type">Loại câu hỏi: Điền vào chỗ trống</h2>
+                                }
+                            </div>
+                            <div style="display:flex;align-items:flex-end">
+                                <h2 id="question-score">Số điểm: @Model[i].Score.ToString("F2")</h2>
+                                @*<button class="buttonFlag" onclick="toggleFlag(this)">
+                                        <img id="flagIcon" src="~/Theme/img/icon/flag.png" alt="Flag" style="width:30px;height:30px;" /> Đặt cờ
+                                    </button>*@
+                            </div>
+                        </div>
+                        <!-- Nội dung câu hỏi -->
+                        @if (Model[i].QuestionType == 3) // Kiểm tra loại câu hỏi
+                        {
+                            int answerIndex = 0;
+                            string questionText = Model[i].QuestionText;
+
+                            <h2 id="question-text" style="padding-top: 15px; padding-bottom: 30px; font-weight: bold;color:black">
+                                @{
+                                    var parts = System.Text.RegularExpressions.Regex.Split(questionText, @"\(_\)");
+                                    for (int partIndex = 0; partIndex < parts.Length; partIndex++)
+                                    {
+                                        @Html.Raw(parts[partIndex])
+                                        if (partIndex < parts.Length - 1)
+                                        {
+                                            string userAnswerText = answerIndex < Model[i].UserAnswerTextList.Count
+                                                ? Model[i].UserAnswerTextList[answerIndex]
+                                                : "";
+
+                                            <input type="text" name="answer_@Model[i].QuestionID"
+                                                   data-answer-id="@Model[i].Answers[answerIndex].AnswerID"
+                                                   class="answer-blank"
+                                                   value="@userAnswerText"
+                                                   style="width: 100px; border:none; border-bottom:1px solid black"
+                                                   onfocus="startEditing(this, @Model[i].QuestionID)"
+                                                   onblur="saveAnswersBlank(this, @Model[i].QuestionID)" />
+
+                                            answerIndex++;
+                                        }
+                                    }
+                                }
+                            </h2>
+                        }
+
+                        else
+                        {
+                            <h2 id="question-text" style="padding-top: 15px; font-weight: bold;">@Model[i].QuestionText</h2>
+                        }
+                        <!-- Hiển thị danh sách đáp án -->
+                        @if (Model[i].QuestionType == 1 || Model[i].QuestionType == 2)
+                        {
+                            <ul id="answers-list">
+                                @foreach (var answer in Model[i].Answers)
+                                {
+                                    <li>
+                                        @if (Model[i].QuestionType == 2)
+                                        {
+                                            <label class="custom-checkbox">
+                                                <input type="checkbox" id="answer_@answer.AnswerID"
+                                                       name="answer_@Model[i].QuestionID"
+                                                       class="answer"
+                                                       value="@answer.AnswerID"
+                                                       @(Model[i].SelectedAnswersId.Contains((int)answer.AnswerID) ? "checked" : "") />
+                                                <span class="checkmark"></span>
+                                                @answer.AnswerText
+                                            </label>
+                                        }
+                                        else if (Model[i].QuestionType == 1)
+                                        {
+                                            <label>
+                                                <input type="radio" id="answer_@answer.AnswerID"
+                                                       name="answer_@Model[i].QuestionID"
+                                                       class="answer"
+                                                       value="@answer.AnswerID"
+                                                       @(Model[i].SelectedAnswersId != null && Model[i].SelectedAnswersId.Count == 1 && Model[i].SelectedAnswersId.First() == answer.AnswerID ? "checked" : "") />
+                                                @answer.AnswerText
+                                            </label>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                            <a href="#" id="clearAnswersButton" style="font-size:2rem; margin-top: 15px;" onclick="clearAnswers(@Model[i].QuestionID); return false;">Xóa hết lựa chọn ...</a>
+                        }
+                    </div>
+                }
+                @*Phân trang*@
+                <div class="pagination1">
+                    @if (currentPage > 1)
+                    {
+                        <a href="@Url.Action("StartExam", new { id = ViewBag.ExamID, page = currentPage - 1 })">Previous</a>
+                    }
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <a href="@Url.Action("StartExam", new { id = ViewBag.ExamID, page = i })"
+                           class="@(i == currentPage ? "active" : "")">@i</a>
+                    }
+
+                    @if (currentPage < totalPages)
+                    {
+                        <a href="@Url.Action("StartExam", new { id = ViewBag.ExamID, page = currentPage + 1 })">Next</a>
+                    }
+
+                </div>
+            </div>
+            <!-- Sidebar hiển thị danh sách câu hỏi và thời gian -->
+            <div class="col-lg-3 fixed-sidebar" id="fixedSidebar">
+                <div class="properties__card" style="position: sticky; top: 10px;">
+                    <!-- Tiêu đề Sidebar -->
+                    <div class="properties__img overlay1" style="height:50px">
+                        <h2 style=" text-align: center; padding-top: 15px;">Câu hỏi</h2>
+                    </div>
+
+                    <!-- Danh sách câu hỏi -->
+                    <div class="listquizz">
+                        @for (int i = 0; i < ViewBag.AllQuestions.Count; i++)
+                        {
+                            var question = ViewBag.AllQuestions[i];
+                            var isAnswered = question.SelectedAnswersId != null && question.SelectedAnswersId.Count > 0;
+
+                            <a href="javascript:void(0);"
+                               id="quizButton_@question.QuestionID"
+                               class="btn_quiz @(isAnswered ? "answered" : "")"
+                               style="@(isAnswered ? "background-color: #00FF00;" : "")">
+                                @(i + 1)
+                            </a>
+                        }
+                    </div>
+                    <div style="padding:2rem;font-size:2rem">
+                        <h2>Thời gian còn lại: <span id="timeRemaining"></span></h2>
+                        <form id="examForm" action="@Url.Action("ShowResult", "ViewExam")" method="post" onsubmit="return confirmAndSubmitForm()">
+                            <input type="hidden" name="examId" value="@ViewBag.ExamID" />
+                            <input type="hidden" name="attemptCount" value="@ViewBag.Count" />
+                            <button style="font-size:16px" type="submit">Kết thúc bài làm ...</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    const examID = document.getElementById("idexam").value;
+    const count = document.getElementById("countExam").value;
+
+    let editingInput = null; // Biến toàn cục để lưu input đang chỉnh sửa
+
+    // Ghi nhận input đang được chỉnh sửa
+    function startEditing(input, questionId) {
+        editingInput = {
+            questionId: questionId,
+            answerId: $(input).data('answer-id'),
+            originalValue: $(input).val()
+        };
+    }
+
+    // Lưu câu trả lời khi thoát khỏi input
+    function saveAnswersBlank(input, questionId) {
+        const answerText = $(input).val();
+        const answerId = $(input).data('answer-id');
+
+        // Kiểm tra nếu không có thay đổi thì không gửi yêu cầu
+        if (editingInput && editingInput.originalValue === answerText) {
+            editingInput = null;
+            return;
+        }
+
+        const answers = [{
+            QuestionID: questionId,
+            AnswerID: answerId,
+            AnswerText: answerText
+        }];
+
+        $.ajax({
+            url: '/ViewExam/SaveTempAnswer3',
+            type: 'POST',
+            data: JSON.stringify({
+                examId: examID,
+                count: count,
+                answers: answers
+            }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response.success) {
+                    console.log('Lưu câu trả lời thành công!');
+
+                    // Cập nhật nút câu hỏi
+                    const questionButton = $('#quizButton_' + questionId);
+                    if (answerText) {
+                        questionButton.css('background-color', '#00FF00');
+                        questionButton.addClass('answered');
+                    } else {
+                        questionButton.css('background-color', '');
+                        questionButton.removeClass('answered');
+                    }
+                } else {
+                    alert('Lưu thất bại, vui lòng thử lại.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Lỗi: ' + error);
+            }
+        });
+
+        editingInput = null;
+    }
+
+    // Xóa câu hỏi
+    $(document).on('change', 'input[type=radio], input[type=checkbox]', function () {
+        var answerID = $(this).val(); // Lấy ID của đáp án
+        var questionID = $(this).attr('name').split('_')[1]; // Lấy ID của câu hỏi
+        // Kiểm tra loại input (radio hoặc checkbox)
+        if ($(this).attr('type') === 'radio') {
+            saveAnswerTemp1(questionID, answerID); // Gọi hàm cho radio
+        } else if ($(this).attr('type') === 'checkbox') {
+            saveAnswerTemp2(questionID, answerID); // Gọi hàm cho checkbox
+        }
+        // Đổi màu nút câu hỏi tương ứng thành màu xanh sau khi trả lời
+        const questionButton = document.getElementById(`quizButton_${questionID}`);
+        if (questionButton) {
+            questionButton.style.backgroundColor = '#00FF00'; // Đặt màu xanh cho nút đã trả lời
+        }
+    });
+
+    // Hàm lưu đáp án tạm thời bằng AJAX
+    function saveAnswerTemp1(questionID, answerID) {
+        $.ajax({
+            url: '/ViewExam/SaveTempAnswer1',
+            type: 'POST',
+            data: {
+                EXAMID: examID,
+                Count: count,
+                QUESTIONID: questionID,
+                ANSWERSID: answerID
+            },
+            success: function(response) {
+                if (response.success) {
+                    console.log("Câu trả lời đã được lưu tạm.");
+                } else {
+                    alert("Đã xảy ra lỗi: " + response.message);
+                }
+            },
+            error: function() {
+                alert("Đã xảy ra lỗi khi lưu đáp án tạm thời.");
+            }
+        });
+    }
+
+    function saveAnswerTemp2(questionID, answerID) {
+        $.ajax({
+            url: '/ViewExam/SaveTempAnswer2',
+            type: 'POST',
+            data: {
+                EXAMID: examID,
+                Count: count,
+                QUESTIONID: questionID,
+                ANSWERSID: answerID
+            },
+            success: function (response) {
+                if (response.success) {
+                    console.log("Đáp án checkbox đã được lưu tạm.");
+                } else {
+                    alert("Đã xảy ra lỗi: " + response.message);
+                }
+            },
+            error: function () {
+                alert("Đã xảy ra lỗi khi lưu đáp án tạm thời.");
+            }
+        });
+    }
+
+    // Hàm xóa tất cả các lựa chọn và lưu giá trị null cho câu trả lời
+    function clearAnswers(questionID) {
+        const inputs = document.querySelectorAll(`input[name="answer_${questionID}"]`);
+
+        inputs.forEach(input => {
+            if (input.type === 'radio') {
+                input.checked = false;
+                saveAnswerTemp1(questionID, null);
+            } else if (input.type === 'checkbox') {
+                input.checked = false;
+                saveAnswerTemp2(questionID, null);
+            } else if (input.type === 'text') {
+                input.value == '';
+                saveAnswersBlank(questionID)
+            }
+        });
+        // Đổi màu nút câu hỏi tương ứng trở lại màu mặc định
+        const questionButton = document.getElementById(`quizButton_${questionID}`);
+        if (questionButton) {
+            questionButton.style.backgroundColor = 'white';
+        }
+    }
+
+    // Hàm đặt cờ đánh dấu câu hỏi
+    function toggleFlag(button) {
+        const flagIcon = button.querySelector("#flagIcon");
+        const isFlagged = flagIcon.src.includes("flag.png");
+
+        if (isFlagged) {
+            flagIcon.src = "../Theme/img/icon/flagred.png";
+        } else {
+            flagIcon.src = "../Theme/img/icon/flag.png";
+        }
+    }
+
+    // Hàm hiển thị hộp thoại xác nhận và gửi biểu mẫu nếu người dùng đồng ý
+    function confirmAndSubmitForm() {
+        if (confirm("Bạn có chắc chắn muốn kết thúc bài làm không?")) {
+            const examForm = document.getElementById("examForm");
+            if (examForm) {
+                examForm.submit();  // Gửi biểu mẫu
+            }
+        }
+        return false; // Ngăn form submit tự động nếu người dùng chọn 'Hủy'
+    }
+
+    // Hàm tự động gửi biểu mẫu khi hết thời gian
+    function autoSubmitForm() {
+        const examForm = document.getElementById("examForm");
+        if (examForm) {
+            examForm.submit();  // Gửi biểu mẫu tự động khi hết giờ
+        }
+    }
+
+    // Hàm đếm ngược thời gian làm bài với hiển thị phút:giây
+    function startCountdown(minutes) {
+        const endTime = Date.now() + minutes * 60 * 1000;
+
+        const timeRemaining = document.getElementById("timeRemaining");
+
+        const countdown = setInterval(function () {
+            const now = Date.now();
+            const remainingTime = Math.floor((endTime - now) / 1000);
+
+            if (remainingTime < 0) {
+                clearInterval(countdown);
+                alert("Hết thời gian làm bài!");
+                autoSubmitForm();
+                return;
+            }
+
+            const displayMinutes = Math.floor(remainingTime / 60);
+            const displaySeconds = remainingTime % 60;
+            timeRemaining.textContent = `${displayMinutes}:${displaySeconds < 10 ? '0' + displaySeconds : displaySeconds}`;
+        }, 1000);
+    }
+
+    window.onload = function() {
+        startCountdown(@ViewBag.TimeExamInMinutes);
+        showQuestion(0);
+    };
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const fixedSidebar = document.getElementById("fixedSidebar");
+        const offset = 300; // Vị trí cuộn (px) để bắt đầu cố định
+
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > offset) {
+                fixedSidebar.classList.add("fixed");
+            } else {
+                fixedSidebar.classList.remove("fixed");
+            }
+        });
+    });
+
+</script>
+
+
+<script>
+    // Chặn menu chuột phải
+    document.addEventListener('contextmenu', function (event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (
+            event.key === 'F12' ||
+            (event.ctrlKey && event.shiftKey && ['I', 'J', 'C'].includes(event.key)) ||
+            (event.ctrlKey && event.key === 'U')
+        ) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+

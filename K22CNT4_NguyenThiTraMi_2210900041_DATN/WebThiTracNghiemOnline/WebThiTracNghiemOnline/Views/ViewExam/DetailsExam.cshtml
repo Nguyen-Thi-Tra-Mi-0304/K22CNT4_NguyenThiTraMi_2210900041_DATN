@@ -1,0 +1,371 @@
+﻿@model List<WebThiTracNghiemOnline.Models.ViewModels.QuestionViewModel>
+@{
+    ViewBag.Title = "ExamDetail";
+    Layout = "~/Views/Shared/_LayoutExam.cshtml";
+    var classList = ViewBag.classInfo as List<WebThiTracNghiemOnline.Models.ClassInfo>;
+}
+
+<style>
+    .quiz-container {
+        box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 100%;
+        padding-bottom: 10px;
+    }
+
+    #question {
+        font-size: 30px;
+        padding: 1rem;
+        text-align: center;
+        margin: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        ul li {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 25px;
+            margin: 1rem 0;
+        }
+
+            ul li label {
+                margin-left: 10px;
+                cursor: pointer;
+            }
+
+    button {
+        background-color: #aa84bb;
+        border: none;
+        color: white;
+        cursor: pointer;
+        display: block;
+        font-family: inherit;
+        font-size: 1.1rem;
+        width: 100%;
+        padding: 1.3rem;
+    }
+
+        button:hover {
+            background-color: #732d91;
+        }
+
+        button:focus {
+            background-color: #5e3370;
+            outline: none;
+        }
+
+    .btn_quiz {
+        text-align: center;
+        padding-top: 20px;
+        width: 56px;
+        height: 60px;
+        border: 1px solid #94b8f0;
+        color: #655757;
+        font-family: "Josefin Sans", sans-serif;
+        border-radius: 5px;
+        text-transform: capitalize;
+        -moz-user-select: none;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin-bottom: 0;
+        position: relative;
+        transition: color 0.4s linear;
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+    }
+
+        .btn_quiz:hover {
+            color: black;
+        }
+
+        .btn_quiz.clicked {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(0, 0, 255, 0.5));
+        }
+
+    .listquizz {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px 5px;
+        justify-content: center;
+    }
+
+        .listquizz > a {
+            margin: 3px 3px;
+            text-decoration: none;
+        }
+
+    .answered {
+        background-color: #00FF00;
+    }
+
+    .fixed-sidebar {
+    position: absolute;
+    right: 0;
+    top: 200px;
+    transition: transform 0.5s ease-out;
+    transform: translateY(0);
+    }
+
+    .fixed-sidebar.sticky {
+        position: fixed;
+        top: 5px;
+        right: 0;
+        z-index: 1000;
+        transform: translateY(0);
+    }
+
+    @@media (max-width: 992px) {
+        /* Đổi vị trí thanh sidebar khi ở kích thước máy tính bảng */
+        .fixed-sidebar {
+            position: relative;
+            top: 0;
+            right: 0;
+            margin-top: 20px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        /* Chỉnh sidebar và câu hỏi ở kích thước màn hình điện thoại */
+        .quiz-container {
+            padding: 0 10px;
+        }
+
+        .fixed-sidebar {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .question-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .buttonFlag {
+            margin-top: 10px;
+        }
+    }
+
+</style>
+
+
+<div class="courses-area fix" style="padding-bottom:50px">
+    <div class="container-full">
+        <div class="properties pb-20 pt-20">
+            <div class="properties" style="font-size: 20px; padding-bottom: 15px">
+                <img src="~/Theme/img/icon/home-button.png" alt="" style="width: 25px; height: 25px; margin-bottom: 5px;">
+                <a href="@Url.Action("ViewIndex","Home")">Trang chủ </a> /
+                <a href="@Url.Action("ExamComplete","Information")">Danh sách bài thi đã làm </a>
+            </div>
+        </div>
+        <div class="row" style="padding:15px">
+            <div class="col-xl-9 quiz-container">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div id="question-container-@(@i+2)" class="question-container" style="margin-bottom: 20px;">
+                        <div class="question-header" style="display: flex; justify-content: space-between; padding-top: 10px; border-bottom: 1px solid blueviolet;">
+                            <div>
+                                <h2 id="question-number">Câu hỏi @(@i+1)</h2>
+                                @if (@Model[i].QuestionType == 1)
+                                {
+                                    <h2 id="question-type">Loại câu hỏi: Chọn một đáp án</h2>
+                                }
+                                else if (@Model[i].QuestionType == 2)
+                                {
+                                    <h2 id="question-type">Loại câu hỏi: Chọn nhiều đáp án</h2>
+                                }
+                                else
+                                {
+                                    <h2 id="question-type">Loại câu hỏi: Điền vào chổ trống</h2>
+                                }
+                            </div>
+                            <div style="display:flex;align-items:flex-end">
+                                <p>Số điểm: <p id="question-score" style="color: @(Model[i].IsCorrect == true ? "green" : "red"); font-weight:bold">
+                                     @Model[i].Score.ToString("F2")
+                                </p></p>
+                            </div>
+                        </div>
+                        @if (Model[i].QuestionType == 3)
+                        {
+                            string questionText = Model[i].QuestionText;
+
+                            <h2 id="question-text" style="padding-top: 15px; font-weight: bold; color:black">
+                                @{
+                                    var parts = System.Text.RegularExpressions.Regex.Split(questionText, @"\(_\)");
+                                    for (int partIndex = 0; partIndex < parts.Length; partIndex++)
+                                    {
+                                        @Html.Raw(parts[partIndex]); // Hiển thị từng phần của câu hỏi
+
+                                        if (partIndex < parts.Length - 1) // Chỉ thêm input nếu còn khoảng trống
+                                        {
+                                            string userAnswerText = Model[i].UserAnswerTextList.Count > partIndex ? Model[i].UserAnswerTextList[partIndex] : "";
+                                            string correctAnswerText = Model[i].CorrectAnswersTextList.Count > partIndex ? Model[i].CorrectAnswersTextList[partIndex] : "";
+
+                                            <input type="text" name="answer_@Model[i].QuestionID"
+                                                   disabled="disabled"
+                                                   class="answer-blank"
+                                                   value="@userAnswerText"
+                                                   style="width: 100px; border: none; border-bottom: 1px solid black; padding: 5px; margin: 0 5px;"
+                                                   oninput="saveAnswersBlank(@Model[i].QuestionID)" />
+
+                                            if (!string.IsNullOrEmpty(userAnswerText))
+                                            {
+                                                if (userAnswerText.Trim().Equals(correctAnswerText.Trim(), StringComparison.OrdinalIgnoreCase))
+                                                {
+                                                    <span style="color: green; font-weight: bold;"> ✓ </span>
+                                                }
+                                                else
+                                                {
+                                                    <span style="color: red; font-weight: bold;"> ✗ </span>
+                                                    <span style=" font-weight: bold; ">[ <span style="color: #00CD00;">@correctAnswerText</span> ]</span>
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            </h2>
+                        }
+
+                        else
+                        {
+                            <h2 id="question-text" style="padding-top: 15px; font-weight: bold;">@Model[i].QuestionText</h2>
+                        }
+
+                        <ul id="answers-list">
+                            @foreach (var answer in Model[i].Answers)
+                            {
+                                bool isSelected = Model[i].SelectedAnswersId.Contains((int)answer.AnswerID);
+                                bool isCorrect = answer.IsCorrect; // Giả sử bạn có thông tin này từ model
+
+                                <li>
+                                    @if (Model[i].QuestionType == 2)
+                                    {
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="answer_@answer.AnswerID"
+                                                   disabled="disabled"
+                                                   name="answer_@Model[i].QuestionID"
+                                                   class="answer"
+                                                   value="@answer.AnswerID"
+                                                   @(isSelected ? "checked" : "") />
+                                            <span class="checkmark"></span>
+                                            @answer.AnswerText
+                                            @if (isSelected && isCorrect)
+                                            {
+                                                <span style="color: green;"> ✓ </span> <!-- Đáp án người dùng chọn và đúng -->
+                                            }
+                                            else if (isSelected && !isCorrect)
+                                            {
+                                                <span style="color: red;"> ✗ </span> <!-- Đáp án người dùng chọn nhưng sai -->
+                                            }
+                                            else if (!isSelected && isCorrect)
+                                            {
+                                                <span style="color: green;"> ✓ </span> <!-- Đáp án đúng nhưng người dùng không chọn -->
+                                            }
+                                        </label>
+                                    }
+                                    else if (Model[i].QuestionType == 1)
+                                    {
+                                        <label>
+                                            <input type="radio" id="answer_@answer.AnswerID"
+                                                   disabled="disabled"
+                                                   name="answer_@Model[i].QuestionID"
+                                                   class="answer"
+                                                   value="@answer.AnswerID"
+                                                   @(isSelected ? "checked" : "") />
+                                            @answer.AnswerText
+                                            @if (isSelected && isCorrect)
+                                            {
+                                                <span style="color: green;"> ✓ </span> <!-- Đáp án người dùng chọn và đúng -->
+                                            }
+                                            else if (isSelected && !isCorrect)
+                                            {
+                                                <span style="color: red;"> ✗ </span> <!-- Đáp án người dùng chọn nhưng sai -->
+                                            }
+                                            else if (!isSelected && isCorrect)
+                                            {
+                                                <span style="color: green;"> ✓ </span> <!-- Đáp án đúng nhưng người dùng không chọn -->
+                                            }
+                                        </label>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+
+            <div class="col-lg-3  fixed-sidebar" >
+                <div class="properties__card" >
+                    <div class="properties__img overlay1" style="height:50px">
+                        <h2 style=" text-align: center; padding-top: 15px;">Câu hỏi</h2>
+                    </div>
+
+                    <div class="listquizz">
+                        @for (int i = 1; i <= Model.Count(); i++)
+                        {
+                            var isAnswered = Model[i - 1].SelectedAnswersId != null && Model[i - 1].SelectedAnswersId.Count > 0;
+                            <a href="javascript:void(0);"
+                               id="quizButton_@Model[i-1].QuestionID"
+                               class="btn_quiz @(isAnswered ? "answered" : "")"
+                               style="@(isAnswered ? "background-color: #00FF00;" : "")"
+                               onclick="scrollToQuestion(@i)">
+                                @i
+                            </a>
+                        }
+                    </div>
+                </div>
+                <div class="properties__card ">
+                    <div class="properties__caption ">
+                        <h2 class="text-primary text-center" style="font-size:25px; margin-bottom:20px;">Kết quả bài thi</h2>
+                        <h3 class="font-weight-bold" style="margin-bottom:10px;">Tên bài thi: @ViewBag.ExamName</h3>
+                        <h3 class="font-weight-bold" style="margin-bottom:10px;"> Lớp: @ViewBag.ClassInfo.DisplayClass </h3>
+                        <h3 class="font-weight-bold" style="margin-bottom:10px;">Trạng thái: Hoàn thành</h3>
+                        <h3 class="font-weight-bold" style="margin-bottom:10px;">Số điểm: @ViewBag.TotalScore điểm</h3>
+
+                        <div class="exam-details" style="font-size:18px; line-height:1.8;">
+                            <p><strong>Thời gian bắt đầu: @ViewBag.TimeStart</strong> </p>
+                            <p><strong>Thời gian kết thúc: @ViewBag.TimeEnd</strong></p>
+                            <p><strong>Tổng câu hỏi: @ViewBag.CountQuestion</strong></p>
+                            <p><strong>Số câu hỏi đúng: @ViewBag.CorrectCount</strong></p>
+                            <p><strong>Số câu hỏi sai: @ViewBag.IncorrectCount</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function scrollToQuestion(questionNumber) {
+        // Lấy phần tử câu hỏi tương ứng
+        const questionContainer = document.getElementById(`question-container-${questionNumber}`);
+        if (questionContainer) {
+            // Cuộn trang đến vị trí của câu hỏi
+            questionContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    window.addEventListener("scroll", function () {
+        const sidebar = document.querySelector(".fixed-sidebar");
+        const triggerPoint = 50; // Vị trí cuộn để kích hoạt sticky
+
+        if (window.scrollY >= triggerPoint) {
+            sidebar.classList.add("sticky");
+        } else {
+            sidebar.classList.remove("sticky");
+        }
+    });
+</script>
+
